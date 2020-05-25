@@ -173,9 +173,17 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Helper\AdminHelper.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ProjectClasses\Priority.cs" />
+    <Compile Include="Models\ProjectClasses\Project.cs" />
+    <Compile Include="Models\Helper\ProjectHelper.cs" />
+    <Compile Include="Models\ProjectClasses\Status.cs" />
+    <Compile Include="Models\Helper\TaskHelper.cs" />
+    <Compile Include="Models\ProjectClasses\DevTask.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
