@@ -14,6 +14,7 @@ namespace TaskManagementSystem.Migrations
         protected override void Seed(TaskManagementSystem.Models.ApplicationDbContext context)
         {
             AdminHelper.addRole("Admin");
+            AdminHelper.addRole("Project Manager");
         }
     }
 }

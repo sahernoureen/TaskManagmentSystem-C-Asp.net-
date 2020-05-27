@@ -23,8 +23,18 @@ namespace TaskManagementSystem.Models
     {
         public DbSet<Project> Projects { get; set; }
         public DbSet<DevTask> DevTasks { get; set; }
+        protected override void OnModelCreating(DbModelBuilder modelBuilder) {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Project>().Property(x => x.DateCompleted).IsOptional();
+
+            modelBuilder.Entity<DevTask>().Property(x => x.DateCompleted).IsOptional();
+            modelBuilder.Entity<DevTask>().Property(x => x.DeveloperId).IsRequired();
+            modelBuilder.Entity<DevTask>().Property(x => x.PercentCompleted).IsOptional();        
+
+        }
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("TaskManagementSystemConnectionString", throwIfV1Schema: false)
         {
         }
 
