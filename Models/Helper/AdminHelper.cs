@@ -2,7 +2,6 @@
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Collections.Generic;
 using System.Linq;
-
 namespace TaskManagementSystem.Models
 {
     public static class AdminHelper
@@ -10,8 +9,17 @@ namespace TaskManagementSystem.Models
         public static ApplicationDbContext db = new ApplicationDbContext();
         public static UserManager<ApplicationUser> userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
         public static RoleManager<IdentityRole> roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db));
-
         //USER
+        public static bool addUser(string email)
+        {
+            if (userManager.FindByEmail(email) == null)
+            {
+                ApplicationUser user = new ApplicationUser() { Email = email, UserName = email };
+                userManager.Create(user, "123456");
+                return true;
+            }
+            return false;
+        }
         public static ApplicationUser getUserById(string userId)
         {
             return db.Users.FirstOrDefault(x => x.Id == userId);
@@ -20,7 +28,6 @@ namespace TaskManagementSystem.Models
         {
             return db.Users.Where(x => x.Id != userId).ToList();
         }
-
         //ADD ROLE TO USER
         public static bool addUserToRole(string userId, string role)
         {
@@ -71,11 +78,9 @@ namespace TaskManagementSystem.Models
             var result = userManager.IsInRole(userId, role);
             return result;
         }
-
         //+ addUser()
         //+ deleteUser()
         //+ updateUser()
-
         //+ addRole()
         //+ deleteRole()
         //+ updateRole()

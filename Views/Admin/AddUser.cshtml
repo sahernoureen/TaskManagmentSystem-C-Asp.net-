@@ -1,0 +1,28 @@
+﻿@model Nullable<Boolean>
+@{
+    ViewBag.Title = "AddUser";
+}
+<h2>AddUser</h2>
+
+<div>
+    @if (Model == true)
+    {
+        <h2> added successful, default password is 123456</h2>
+    }
+    else if (Model == false)
+    {
+        <h2>  added failed, the user has exsited in your system!</h2>
+    }
+    else
+    {
+        <div>
+            @using (Html.BeginForm("AddUser", "Admin"))
+            {
+                <div>
+                    @Html.TextBox("email")
+                </div>
+                <input type="submit" value="Create User" />
+            }
+        </div>
+    }
+</div>
