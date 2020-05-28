@@ -12,8 +12,9 @@
 
         <ul>
 
-            <li>@user.Name
-            @Html.ActionLink("Delete", "DeleteUser", "Admin", new { userId = user.Id }, null)
+            <li>
+                Name: @user.Name  Daliy Salary:$ @user.Salary
+                @Html.ActionLink("Delete", "DeleteUser", "Admin", new { userId = user.Id }, null)
             </li>
 
             @foreach (var role in user.RolesInfo)

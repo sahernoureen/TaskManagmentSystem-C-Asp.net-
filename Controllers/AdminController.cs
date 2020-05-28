@@ -19,7 +19,6 @@ namespace TaskManagementSystem.Controllers
         //get
         public ActionResult AdminHomePage()
         {
-            
             return View();
         }
         //post
@@ -33,7 +32,6 @@ namespace TaskManagementSystem.Controllers
                 return View();
             }
             return View();
-
         }
         //get
         public ActionResult AddRole()

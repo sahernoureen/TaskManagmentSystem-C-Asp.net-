@@ -184,6 +184,10 @@
     <Compile Include="Migrations\202005270608217_inital.designer.cs">
       <DependentUpon>202005270608217_inital.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202005282010334_addSalaryToUser.cs" />
+    <Compile Include="Migrations\202005282010334_addSalaryToUser.designer.cs">
+      <DependentUpon>202005282010334_addSalaryToUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Helper\AdminHelper.cs" />
@@ -368,6 +372,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202005270608217_inital.resx">
       <DependentUpon>202005270608217_inital.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005282010334_addSalaryToUser.resx">
+      <DependentUpon>202005282010334_addSalaryToUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

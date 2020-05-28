@@ -19,7 +19,7 @@ namespace TaskManagementSystem.Models
 
             if (userManager.FindByEmail(user.Email) == null)
             {
-                ApplicationUser appUser = new ApplicationUser() { Email = user.Email, UserName = user.Email };
+                ApplicationUser appUser = new ApplicationUser() { Email = user.Email, UserName = user.Email, Salary = user.Salary};
                 userManager.Create(appUser, user.Password);
                 return true;
             }
@@ -48,6 +48,7 @@ namespace TaskManagementSystem.Models
                 var ui = new UserInfoHolder();
                 ui.Id = u.Id;
                 ui.Name = u.UserName;
+                ui.Salary = u.Salary;
 
                 foreach(var r in u.Roles) 
                 {
