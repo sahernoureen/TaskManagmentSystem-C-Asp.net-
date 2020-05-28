@@ -59,10 +59,6 @@ namespace TaskManagementSystem.Models
             return userInfo.Where(u=>u.RolesInfo.All(r=>r.Name!="Admin")).ToList();
         }
 
-        public static List<ApplicationUser> getAllUsers() 
-        {
-            return db.Users.ToList();
-        }
         public static List<IdentityRole> getAllRoles()
         {
             return db.Roles.Where(r=>r.Name!="Admin").ToList();
@@ -125,12 +121,6 @@ namespace TaskManagementSystem.Models
             var result = userManager.IsInRole(userId, role);
             return result;
         }
-        //+ addUser()
-        //+ deleteUser()
-        //+ updateUser()
-        //+ addRole()
-        //+ deleteRole()
-        //+ updateRole()
-        //+ assignRole()
+        
     }
 }

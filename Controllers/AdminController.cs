@@ -69,12 +69,7 @@ namespace TaskManagementSystem.Controllers
         }
 
 
-        //get
-        public ActionResult GetAllUsers()
-        {
-            var result = AdminHelper.getAllUsers();
-            return View(result);
-        }
+       
 
         //get
         public ActionResult GetAllUsersInfo()
