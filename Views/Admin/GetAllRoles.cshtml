@@ -1,0 +1,25 @@
+﻿@model List<Microsoft.AspNet.Identity.EntityFramework.IdentityRole>
+@{
+    ViewBag.Title = "GetAllRoles";
+}
+
+<h2>GetAllRoles</h2>
+
+<div>
+    <ul>
+        @foreach (var role in Model)
+        {
+            <li>
+                @role.Name
+                @Html.ActionLink("Delete", "DeleteRole", "Admin")
+            </li>
+        }
+    </ul>
+</div>
+<div>
+    @Html.ActionLink("AddUser", "AddUser", "Admin")|
+    @Html.ActionLink("AddRole", "AddRole", "Admin")|
+    @Html.ActionLink("GetAllUsersInfo", "GetAllUsersInfo", "Admin")|
+    @Html.ActionLink("GetAllRoles", "GetAllRoles", "Admin")|
+    @Html.ActionLink("AddUserToRole", "AddUserToRole", "Admin")
+</div>

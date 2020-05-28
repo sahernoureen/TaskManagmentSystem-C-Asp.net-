@@ -1,7 +1,11 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Globalization;
 using System.Linq;
+using TaskManagementSystem.Models.Helper;
+
 namespace TaskManagementSystem.Models
 {
     public static class AdminHelper
@@ -10,15 +14,58 @@ namespace TaskManagementSystem.Models
         public static UserManager<ApplicationUser> userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
         public static RoleManager<IdentityRole> roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db));
         //USER
-        public static bool addUser(string email)
+        public static bool addUser(RegisterViewModel user)
         {
-            if (userManager.FindByEmail(email) == null)
+
+            if (userManager.FindByEmail(user.Email) == null)
             {
-                ApplicationUser user = new ApplicationUser() { Email = email, UserName = email };
-                userManager.Create(user, "123456");
+                ApplicationUser appUser = new ApplicationUser() { Email = user.Email, UserName = user.Email };
+                userManager.Create(appUser, user.Password);
                 return true;
             }
             return false;
+        }
+
+
+        public static bool deleteUser(string userId)
+        {
+            if (userManager.FindById(userId) != null)
+            {
+                var user = db.Users.Find(userId);
+                userManager.Delete(user);
+                return true;
+            }
+            return false;
+        }
+        public static List<UserInfoHolder> getAllUsersInfo()
+        {
+            var users = db.Users.ToList();
+
+            var userInfo = new List<UserInfoHolder>();
+
+            foreach (var u in users) 
+            {
+                var ui = new UserInfoHolder();
+                ui.Id = u.Id;
+                ui.Name = u.UserName;
+
+                foreach(var r in u.Roles) 
+                {
+                    var role = db.Roles.Find(r.RoleId);
+                    ui.RolesInfo.Add(role);
+                }
+                userInfo.Add(ui);
+            }
+            return userInfo.Where(u=>u.RolesInfo.All(r=>r.Name!="Admin")).ToList();
+        }
+
+        public static List<ApplicationUser> getAllUsers() 
+        {
+            return db.Users.ToList();
+        }
+        public static List<IdentityRole> getAllRoles()
+        {
+            return db.Roles.Where(r=>r.Name!="Admin").ToList();
         }
         public static ApplicationUser getUserById(string userId)
         {
@@ -42,9 +89,9 @@ namespace TaskManagementSystem.Models
             }
         }
         //REMOVE ROLE TO USER
-        public static bool removeUserToRole(string userId, string role)
+        public static bool removeUserFromRole(string userId, string role)
         {
-            if (checkIfUserIsRole(userId, role))
+            if (!checkIfUserIsRole(userId, role))
             {
                 return false;
             }

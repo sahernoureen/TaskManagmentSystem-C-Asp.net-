@@ -21,6 +21,7 @@ namespace TaskManagementSystem.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+
         public DbSet<Project> Projects { get; set; }
         public DbSet<DevTask> DevTasks { get; set; }
         public ApplicationDbContext()

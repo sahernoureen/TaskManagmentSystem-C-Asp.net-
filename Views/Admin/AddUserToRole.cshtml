@@ -1,0 +1,23 @@
+﻿@model Nullable<Boolean>
+@{
+    ViewBag.Title = "AddUserToRole";
+}
+
+<h2>AddUserToRole</h2>
+
+<div>
+    @using (Html.BeginForm())
+    {
+        @Html.DropDownList("userId")
+        @Html.DropDownList("role")
+        <input type="submit" value="Add To Role" class="btn btn-default" />
+    }
+</div>
+
+<div>
+    @Html.ActionLink("AddUser", "AddUser", "Admin")|
+    @Html.ActionLink("AddRole", "AddRole", "Admin")|
+    @Html.ActionLink("GetAllUsersInfo", "GetAllUsersInfo", "Admin")|
+    @Html.ActionLink("GetAllRoles", "GetAllRoles", "Admin")|
+    @Html.ActionLink("AddUserToRole", "AddUserToRole", "Admin")
+</div>

@@ -1,0 +1,43 @@
+﻿@model List<TaskManagementSystem.Models.Helper.UserInfoHolder>
+@{
+    ViewBag.Title = "GetAllUsers";
+}
+
+<h2>GetAllUsers</h2>
+
+<div>
+    <div>
+        @foreach (var user in Model)
+        {
+
+        <ul>
+
+            <li>@user.Name
+            @Html.ActionLink("Delete", "DeleteUser", "Admin", new { userId = user.Id }, null)
+            </li>
+
+            @foreach (var role in user.RolesInfo)
+            {
+                <ul>
+
+
+            <li>
+                @role.Name
+                @Html.ActionLink("Remove Role", "RemoveUserFromRole", "Admin", new { userId = user.Id, role = role.Name }, null)
+            </li>
+                    </ul>
+
+            }
+        </ul>
+       
+        }
+    </div>
+</div>
+
+<div>
+    @Html.ActionLink("AddUser", "AddUser", "Admin")|
+    @Html.ActionLink("AddRole", "AddRole", "Admin")|
+    @Html.ActionLink("GetAllUsersInfo", "GetAllUsersInfo", "Admin")|
+    @Html.ActionLink("GetAllRoles", "GetAllRoles", "Admin")|
+    @Html.ActionLink("AddUserToRole", "AddUserToRole", "Admin")
+</div>
