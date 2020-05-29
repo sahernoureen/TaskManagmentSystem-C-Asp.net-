@@ -17,9 +17,6 @@ namespace TaskManagementSystem.Models
         }
 
         //PROJECT
-        public static List<Project> getAllProject() {
-            return db.Projects.Include("User").ToList();
-        }
         public static Project getProjectById(int id) {
             return db.Projects.FirstOrDefault(x => x.Id == id);
         }
@@ -28,8 +25,6 @@ namespace TaskManagementSystem.Models
         public static void createProject(DateTime deadline, string description, Priority priority, Status status, string title, string userId) {
             Project project = new Project(DateTime.Now, deadline, description, priority, status, title, userId);
             db.Projects.Add(project);
-            //var user = UserManagerHelper.getUserById(userId);
-            //user.Projects.Add(project);
             db.SaveChanges();
         }
 

@@ -1,0 +1,55 @@
+﻿@model TaskManagementSystem.Models.ProjectClasses.UpdateTaskViewModelForPM
+
+@using (Html.BeginForm("UpdateTask", "DevTask", FormMethod.Post, new { @class = "form-horizontal", role = "form" })) {
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.TaskId)
+    @Html.HiddenFor(m => m.ProjectId)
+    <h4>Update Task</h4>
+    <hr />
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(m => m.Title, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Description, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Priority, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DropDownList("priority", EnumHelper.GetSelectList(typeof(TaskManagementSystem.Models.Priority)), new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Status, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DropDownList("status", EnumHelper.GetSelectList(typeof(TaskManagementSystem.Models.Status)), new { @class = "form-control" })
+        </div>
+
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Deadline, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(m => m.Deadline, new { htmlAttributes = new { Value = Model.Deadline, @class = "form-control" } })
+            @Html.ValidationMessageFor(m => m.Deadline, Model.Deadline.ToString(), new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-default" value="Update" />
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+

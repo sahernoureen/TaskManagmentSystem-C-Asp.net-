@@ -32,9 +32,33 @@
                     <li>Date Completed: @project.DateCompleted</li>
                 }
                 <li>Created By: @project.User.UserName (Project Manager)</li>
+                @if (project.DevTasks.Count > 0) {
+                    <li>List Of Task</li>
+                    <ol>
+                        @foreach (var devTask in project.DevTasks) {
+                            <li>
+                                <span>
+                                    Task Name: @devTask.Title
+                                    <span> &nbsp;</span>
+                                    @Html.ActionLink("Update", "UpdateTask", "DevTask", new { devTaskId = devTask.Id, projectId = project.Id }, null)
+                                    <span> &nbsp;</span>
+                                    @*@using (Html.BeginForm("DeleteTask", "DevTask", new { devTaskId = devTask.Id })) {
+                                        <input type="submit" value="Delete" />
+                                    }*@
+                                    @Html.ActionLink("Delete", "DeleteTask", "DevTask", new { devTaskId = devTask.Id }, null)
+                                </span>
+                                <br />
+                                <span>Developer: @devTask.Developer.UserName</span>
+                                <br />
+                                <span>Deadline: @devTask.Deadline</span>
+                            </li>
+                        }
+
+                    </ol>
+                }
             </ul>
 
-            <p>@Html.ActionLink("Add Task", "AddTask", new { projectId = project.Id }, null)</p>
+            <p>@Html.ActionLink("Add Task", "AddTask", "DevTask", new { projectId = project.Id }, null)</p>
             <br />
         }
     </ol>

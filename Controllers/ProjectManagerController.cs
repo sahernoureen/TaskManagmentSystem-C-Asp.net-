@@ -7,15 +7,13 @@ using TaskManagementSystem.Models;
 using Microsoft.AspNet.Identity;
 using TaskManagementSystem.Models.ProjectClasses;
 
-namespace TaskManagementSystem.Controllers
-{
-    public class ProjectManagerController : Controller
-    {
+namespace TaskManagementSystem.Controllers {
+    public class ProjectManagerController : Controller {
+        private ApplicationDbContext db = new ApplicationDbContext();
         // GET: ProjectManager
         // GET: TaskManager
         public ActionResult Index() {
-            var userId = User.Identity.GetUserId();
-            var projects = ProjectHelper.getAllProject();
+            var projects = db.Projects.Include("User").Include("DevTasks").ToList();
             return View(projects);
         }
 
@@ -31,7 +29,7 @@ namespace TaskManagementSystem.Controllers
             }
             return RedirectToAction("Index", "ProjectManager");
         }
-
+ 
         public ActionResult DeleteProject(int projectId) {
             ProjectHelper.deleteProject(projectId);
             return RedirectToAction("Index", "ProjectManager");

@@ -169,6 +169,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DevTaskController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProjectManagerController.cs" />
@@ -183,11 +184,16 @@
     <Compile Include="Migrations\202005270357120_AddPropertiesInApplicationUser.designer.cs">
       <DependentUpon>202005270357120_AddPropertiesInApplicationUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202005290136004_AddedDataAnnotationInDevTask.cs" />
+    <Compile Include="Migrations\202005290136004_AddedDataAnnotationInDevTask.designer.cs">
+      <DependentUpon>202005290136004_AddedDataAnnotationInDevTask.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Helper\AdminHelper.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ProjectClasses\DevTaskViewModel.cs" />
     <Compile Include="Models\ProjectClasses\Priority.cs" />
     <Compile Include="Models\ProjectClasses\Project.cs" />
     <Compile Include="Models\Helper\ProjectHelper.cs" />
@@ -257,6 +263,8 @@
     <Content Include="Views\ProjectManager\Index.cshtml" />
     <Content Include="Views\ProjectManager\AddProject.cshtml" />
     <Content Include="Views\ProjectManager\UpdateProject.cshtml" />
+    <Content Include="Views\DevTask\AddTask.cshtml" />
+    <Content Include="Views\DevTask\UpdateTask.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -280,6 +288,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202005270357120_AddPropertiesInApplicationUser.resx">
       <DependentUpon>202005270357120_AddPropertiesInApplicationUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005290136004_AddedDataAnnotationInDevTask.resx">
+      <DependentUpon>202005290136004_AddedDataAnnotationInDevTask.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
