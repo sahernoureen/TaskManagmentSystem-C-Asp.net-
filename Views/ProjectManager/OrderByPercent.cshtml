@@ -1,21 +1,6 @@
 ﻿@model List<TaskManagementSystem.Models.Project>
-@{
-    ViewBag.Title = "Index";
-}
 
-<h2>PROJECT MANAGER DASHBOARD</h2>
-<p>
-    @Html.ActionLink("Add Project", "AddProject")
-    <span> &nbsp; &nbsp;</span>
-    @Html.ActionLink("Order By Percent", "OrderByPercent")
-    <span> &nbsp; &nbsp;</span>
-    @Html.ActionLink("Order By Percent Excluding Complete", "OrderByPercentExcludingComplete")
-    <span> &nbsp; &nbsp;</span>
-    @Html.ActionLink("Order By Priority", "OrderByPriority")
-    <span> &nbsp; &nbsp;</span>
-    @Html.ActionLink("Overdue Deadline That are Incomplete", "OrderByIncompleByDeadline")
-</p>
-
+<h2>Order By Percent</h2>
 
 @if (Model.Count > 0) {
     <p>List Of Projects</p>
@@ -68,3 +53,10 @@
         }
     </ol>
 }
+@Html.ActionLink("Back to Dashboard", "Index")
+
+
+
+
+
+

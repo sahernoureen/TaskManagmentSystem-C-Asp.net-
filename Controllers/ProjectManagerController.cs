@@ -7,6 +7,7 @@ using TaskManagementSystem.Models;
 using Microsoft.AspNet.Identity;
 using TaskManagementSystem.Models.ProjectClasses;
 
+
 namespace TaskManagementSystem.Controllers {
     public class ProjectManagerController : Controller {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -33,6 +34,24 @@ namespace TaskManagementSystem.Controllers {
         public ActionResult DeleteProject(int projectId) {
             ProjectHelper.deleteProject(projectId);
             return RedirectToAction("Index", "ProjectManager");
+        }
+        public ActionResult OrderByPercent() {
+            var projects = ProjectHelper.oderByDevTaskPercent();
+            return View(projects);
+        }
+
+        public ActionResult OrderByPercentExcludingComplete() {
+            var projects = ProjectHelper.oderByDevTaskPercentExcludingComplete();
+            return View(projects);
+        }
+        public ActionResult OrderByPriority() {
+            var projects = ProjectHelper.orderByPriority();
+            return View(projects);
+        }
+
+        public ActionResult OrderByIncompleByDeadline() {
+            var projects = ProjectHelper.orderByIncompleByDeadline();
+            return View(projects);
         }
 
         [HttpGet]

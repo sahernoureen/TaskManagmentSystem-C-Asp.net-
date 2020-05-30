@@ -265,6 +265,10 @@
     <Content Include="Views\ProjectManager\UpdateProject.cshtml" />
     <Content Include="Views\DevTask\AddTask.cshtml" />
     <Content Include="Views\DevTask\UpdateTask.cshtml" />
+    <Content Include="Views\ProjectManager\OrderByPercent.cshtml" />
+    <Content Include="Views\ProjectManager\OrderByPercentExcludingComplete.cshtml" />
+    <Content Include="Views\ProjectManager\OrderByPriority.cshtml" />
+    <Content Include="Views\ProjectManager\OrderByIncompleByDeadline.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
