@@ -11,8 +11,14 @@ namespace TaskManagementSystem.Models
         public static ApplicationDbContext db = new ApplicationDbContext();
 
         //USER 
-        public static List<ApplicationUser> getAllUser() {
-            return db.Users.ToList();
+        public static List<ApplicationUser> getAllDeveloperUserExceptProjectManagerId(string userId) {
+            List<ApplicationUser> listDevelopers = new List<ApplicationUser>();
+            foreach (var user in db.Users) {
+                if (AdminHelper.checkIfUserIsRole(user.Id, "Developer") && user.Id != userId) {
+                    listDevelopers.Add(user);
+                }
+            }
+            return listDevelopers;
         }
 
         //GET TASK

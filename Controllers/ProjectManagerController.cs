@@ -11,8 +11,7 @@ using TaskManagementSystem.Models.ProjectClasses;
 namespace TaskManagementSystem.Controllers {
     public class ProjectManagerController : Controller {
         private ApplicationDbContext db = new ApplicationDbContext();
-        // GET: ProjectManager
-        // GET: TaskManager
+
         public ActionResult Index() {
             var projects = db.Projects.Include("User").Include("DevTasks").ToList();
             return View(projects);
@@ -35,22 +34,46 @@ namespace TaskManagementSystem.Controllers {
             ProjectHelper.deleteProject(projectId);
             return RedirectToAction("Index", "ProjectManager");
         }
+
         public ActionResult OrderByPercent() {
-            var projects = ProjectHelper.oderByDevTaskPercent();
+            Dictionary<Project, double> dicProjects = new Dictionary<Project, double>();
+            foreach (var project in db.Projects) {
+                if (project.DevTasks.Count > 0) {
+                    var sum = project.DevTasks.Sum(x => x.PercentCompleted) / project.DevTasks.Count();
+                    dicProjects.Add(project, sum);
+                } else {
+                    dicProjects.Add(project, 0);
+                }
+            }
+            var projects = dicProjects.OrderByDescending(x => x.Value).Select(x => x.Key).ToList();
             return View(projects);
         }
 
         public ActionResult OrderByPercentExcludingComplete() {
-            var projects = ProjectHelper.oderByDevTaskPercentExcludingComplete();
+            Dictionary<Project, double> dicProjects = new Dictionary<Project, double>();
+            foreach (var project in db.Projects) {
+                if (project.DevTasks.Count > 0) {
+                    var sum = project.DevTasks.Sum(x => x.PercentCompleted) / project.DevTasks.Count();
+                    dicProjects.Add(project, sum);
+                } else {
+                    dicProjects.Add(project, 0);
+                }
+            }
+            var projects = dicProjects.OrderByDescending(x => x.Value).Select(x => x.Key).Where(x => x.Status != Status.Completed).ToList();
             return View(projects);
         }
+
         public ActionResult OrderByPriority() {
-            var projects = ProjectHelper.orderByPriority();
+            var projects = db.Projects.OrderBy(
+                 t => t.Priority == Priority.Urgent ? 1 :
+                 (t.Priority == Priority.High ? 2 :
+                 (t.Priority == Priority.Medium ? 3 : 4))
+                 ).ToList();
             return View(projects);
         }
 
         public ActionResult OrderByIncompleByDeadline() {
-            var projects = ProjectHelper.orderByIncompleByDeadline();
+            var projects = db.Projects.Where(x => x.Status != Status.Completed && DateTime.Compare(DateTime.Now, x.Deadline) > 0).ToList();
             return View(projects);
         }
 
