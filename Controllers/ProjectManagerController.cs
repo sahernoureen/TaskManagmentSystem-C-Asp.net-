@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNet.Identity;
+using System.Web;
 using System.Web.Mvc;
 using TaskManagementSystem.Models;
+using Microsoft.AspNet.Identity;
 using TaskManagementSystem.Models.ProjectClasses;
 
 
 namespace TaskManagementSystem.Controllers {
+    [Authorize(Roles = "Project Manager")]
     public class ProjectManagerController : Controller {
         private ApplicationDbContext db = new ApplicationDbContext();
 
@@ -16,19 +18,13 @@ namespace TaskManagementSystem.Controllers {
             return View(projects);
         }
 
-            return View();
-        }
-
         [HttpGet]
-        public ActionResult AddProject()
-        {
+        public ActionResult AddProject() {
             return View();
         }
         [HttpPost]
-        public ActionResult AddProject(ProjectViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
+        public ActionResult AddProject(ProjectViewModel model) {
+            if (ModelState.IsValid) {
                 var userId = User.Identity.GetUserId();
                 ProjectHelper.createProject(model.Deadline, model.Description, model.Priority, model.Status, model.Title, userId);
             }
@@ -83,20 +79,19 @@ namespace TaskManagementSystem.Controllers {
         }
 
         [HttpGet]
-        public ActionResult UpdateProject(int projectId)
-        {
+        public ActionResult UpdateProject(int projectId) {
             var project = ProjectHelper.createProjectViewModel(projectId);
             ViewBag.projectId = projectId;
             return View(project);
         }
         [HttpPost]
-        public ActionResult UpdateProject(UpdateProjectViewModer model)
-        {
-            if (ModelState.IsValid)
-            {
+        public ActionResult UpdateProject(UpdateProjectViewModer model) {
+            if (ModelState.IsValid) {
                 ProjectHelper.updateProject(model.ProjectId, model.DateCompleted, model.Deadline, model.Description, model.Priority, model.Status, model.Title);
             }
             return RedirectToAction("Index", "ProjectManager");
         }
+
     }
+
 }

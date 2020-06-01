@@ -1,0 +1,61 @@
+﻿
+@model TaskManagementSystem.Models.ProjectClasses.TaskViewModel
+
+
+
+@using (Html.BeginForm("AddTask", "DevTask", FormMethod.Post, new { @class = "form-horizontal", role = "form" })) {
+    @Html.AntiForgeryToken()
+    <h4>Create a new Task.</h4>
+    <hr />
+
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(m => m.Title, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Description, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.DeveloperId, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DropDownList("DeveloperId", (SelectList)ViewBag.DeveloperId, "Available Developer", new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Priority, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DropDownList("priority", EnumHelper.GetSelectList(typeof(TaskManagementSystem.Models.Priority)), new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Status, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DropDownList("status", EnumHelper.GetSelectList(typeof(TaskManagementSystem.Models.Status)), new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Deadline, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(m => m.Deadline, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+    @Html.HiddenFor(m => m.ProjectId, new { Value = ViewBag.ProjectId })
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-default" value="Add" />
+        </div>
+    </div>
+}
+@Html.ActionLink("Back to Dashboard", "Index","ProjectManager")
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
