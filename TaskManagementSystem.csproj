@@ -169,6 +169,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DeveloperController.cs" />
     <Compile Include="Controllers\DevTaskController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -269,6 +270,9 @@
     <Content Include="Views\ProjectManager\OrderByPercentExcludingComplete.cshtml" />
     <Content Include="Views\ProjectManager\OrderByPriority.cshtml" />
     <Content Include="Views\ProjectManager\OrderByIncompleByDeadline.cshtml" />
+    <Content Include="Views\Developer\Index.cshtml" />
+    <Content Include="Views\Developer\UpdateDeveloperTask.cshtml" />
+    <Content Include="Views\Developer\AddComment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

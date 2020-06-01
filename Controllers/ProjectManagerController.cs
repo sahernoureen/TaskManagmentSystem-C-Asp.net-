@@ -9,6 +9,7 @@ using TaskManagementSystem.Models.ProjectClasses;
 
 
 namespace TaskManagementSystem.Controllers {
+    [Authorize(Roles = "Project Manager")]
     public class ProjectManagerController : Controller {
         private ApplicationDbContext db = new ApplicationDbContext();
 

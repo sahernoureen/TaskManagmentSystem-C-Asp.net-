@@ -1,0 +1,39 @@
+﻿@model List<TaskManagementSystem.Models.ProjectClasses.DevTask>
+
+<p>DEVELOPER DASHBOARD</p>
+@if (Model.Count > 0) {
+    <p>List Of Tasks</p>
+
+    foreach (var devTask in Model) {
+        <ol>
+            <li>
+                Project Title: @devTask.Project.Title
+                <span> &nbsp; &nbsp; &nbsp; &nbsp;</span>
+                @Html.ActionLink("Update", "UpdateDeveloperTask", new { devTaskId = devTask.Id }, null)
+
+            </li>
+            <ul>
+                <li>Task Title: @devTask.Title</li>
+                <li>Description: @devTask.Description</li>
+                <li>Priority: @devTask.Priority</li>
+                <li>Status: @devTask.Status</li>
+                <li>DateCreated: @devTask.DateCreated</li>
+                <li>Deadline: @devTask.Deadline</li>
+                @if (devTask.DateCompleted == null) {
+                    <li>Date Completed: Not Yet Completed</li>
+                } else {
+                    <li>Date Completed: @devTask.DateCompleted</li>
+                }
+                <li>Percent Completed: @devTask.PercentCompleted%</li>
+                @if (devTask.Comment != null) {
+                    <li>Comment: @devTask.Comment</li>
+                }
+            </ul>
+            @if (devTask.PercentCompleted == 100) {
+                @Html.ActionLink("Add Comment", "AddComment", new { devTaskId = devTask.Id }, null)
+            }
+            <br />
+            <br />
+        </ol>
+    }
+}
