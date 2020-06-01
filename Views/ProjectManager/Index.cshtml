@@ -1,24 +1,21 @@
 ﻿@model List<TaskManagementSystem.Models.Project>
-@{
-    ViewBag.Title = "Index";
-}
 
 <h2>PROJECT MANAGER DASHBOARD</h2>
-<p>
-    @Html.ActionLink("Add Project", "AddProject")
-    <span> &nbsp; &nbsp;</span>
-    @Html.ActionLink("Order By Percent", "OrderByPercent")
-    <span> &nbsp; &nbsp;</span>
-    @Html.ActionLink("Order By Percent Excluding Complete", "OrderByPercentExcludingComplete")
-    <span> &nbsp; &nbsp;</span>
-    @Html.ActionLink("Order By Priority", "OrderByPriority")
-    <span> &nbsp; &nbsp;</span>
-    @Html.ActionLink("Overdue Deadline That are Incomplete", "OrderByIncompleByDeadline")
-</p>
+<h4>Projects</h4>
+<ul>
+    <li>@Html.ActionLink("Add Project", "AddProject")</li>
+    <li>@Html.ActionLink("Order By Percent", "OrderByPercent")</li>
+    <li>@Html.ActionLink("Order By Percent Excluding Complete", "OrderByPercentExcludingComplete")</li>
+    <li>@Html.ActionLink("Order By Priority", "OrderByPriority")</li>
+</ul>
+<h4>Task</h4>
+<ul>
+    <li>@Html.ActionLink("Overdue Deadline That are Incomplete", "OrderByIncompleByDeadline")</li>
+</ul>
 
 
 @if (Model.Count > 0) {
-    <p>List Of Projects</p>
+    <h4>List Of Projects</h4>
     <ol>
         @foreach (var project in Model) {
             <li>
@@ -44,23 +41,23 @@
                     <li>List Of Task</li>
                     <ol>
                         @foreach (var devTask in project.DevTasks) {
-                        <li>
-                            <span>
-                                Task Name: @devTask.Title
-                                <span> &nbsp;</span>
-                                @Html.ActionLink("Update", "UpdateTask", "DevTask", new { devTaskId = devTask.Id, projectId = project.Id }, null)
-                                <span> &nbsp;</span>
-                                @Html.ActionLink("Delete", "DeleteTask", "DevTask", new { devTaskId = devTask.Id }, null)
-                            </span>
-                            <br />
-                            <span>Developer: @devTask.Developer.UserName</span>
-                            <br />
-                            <span>Deadline: @devTask.Deadline</span>
-                            <br />
-                            <span>Status: @devTask.Status</span>
-                            <br />
-                            <span>Percent Completed: @devTask.PercentCompleted%</span>
-                        </li>
+                            <li>
+                                <span>
+                                    Task Name: @devTask.Title
+                                    <span> &nbsp;</span>
+                                    @Html.ActionLink("Update", "UpdateTask", "DevTask", new { devTaskId = devTask.Id, projectId = project.Id }, null)
+                                    <span> &nbsp;</span>
+                                    @Html.ActionLink("Delete", "DeleteTask", "DevTask", new { devTaskId = devTask.Id }, null)
+                                </span>
+                                <br />
+                                <span>Developer: @devTask.Developer.UserName</span>
+                                <br />
+                                <span>Deadline: @devTask.Deadline</span>
+                                <br />
+                                <span>Status: @devTask.Status</span>
+                                <br />
+                                <span>Percent Completed: @devTask.PercentCompleted%</span>
+                            </li>
                         }
 
                     </ol>

@@ -73,8 +73,8 @@ namespace TaskManagementSystem.Controllers {
         }
 
         public ActionResult OrderByIncompleByDeadline() {
-            var projects = db.Projects.Where(x => x.Status != Status.Completed && DateTime.Compare(DateTime.Now, x.Deadline) > 0).ToList();
-            return View(projects);
+            var devTasks = db.DevTasks.Where(x => x.Status != Status.Completed && DateTime.Compare(DateTime.Now, x.Deadline) > 0).ToList();
+            return View(devTasks);
         }
 
         [HttpGet]
