@@ -88,7 +88,7 @@ namespace TaskManagementSystem.Controllers
             var result = AdminHelper.deleteUser(userId);
             if (result) 
             { 
-                return RedirectToAction("GetAllUsers");
+                return RedirectToAction("GetAllUsersInfo");
             }
             return View();
         }
