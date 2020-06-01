@@ -175,18 +175,21 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\DeveloperController.cs" />
+    <Compile Include="Controllers\DevTaskController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ProjectManagerController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202005270608217_inital.cs" />
-    <Compile Include="Migrations\202005270608217_inital.designer.cs">
-      <DependentUpon>202005270608217_inital.cs</DependentUpon>
+    <Compile Include="Migrations\202006011826024_initial.cs" />
+    <Compile Include="Migrations\202006011826024_initial.designer.cs">
+      <DependentUpon>202006011826024_initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202005282010334_addSalaryToUser.cs" />
-    <Compile Include="Migrations\202005282010334_addSalaryToUser.designer.cs">
-      <DependentUpon>202005282010334_addSalaryToUser.cs</DependentUpon>
+    <Compile Include="Migrations\202006011913556_Notifications.cs" />
+    <Compile Include="Migrations\202006011913556_Notifications.designer.cs">
+      <DependentUpon>202006011913556_Notifications.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -194,9 +197,13 @@
     <Compile Include="Models\Helper\UserInfoHolder.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ProjectClasses\DevTaskViewModel.cs" />
+    <Compile Include="Models\ProjectClasses\NotificationDev.cs" />
+    <Compile Include="Models\ProjectClasses\NotificationManager.cs" />
     <Compile Include="Models\ProjectClasses\Priority.cs" />
     <Compile Include="Models\ProjectClasses\Project.cs" />
     <Compile Include="Models\Helper\ProjectHelper.cs" />
+    <Compile Include="Models\ProjectClasses\ProjectManagerViewModel.cs" />
     <Compile Include="Models\ProjectClasses\Status.cs" />
     <Compile Include="Models\Helper\TaskHelper.cs" />
     <Compile Include="Models\ProjectClasses\DevTask.cs" />
@@ -366,6 +373,18 @@
     <Content Include="Views\Admin\GetAllRoles.cshtml" />
     <Content Include="Views\Admin\AddUserToRole.cshtml" />
     <Content Include="Views\Admin\DeleteUser.cshtml" />
+    <Content Include="Views\Developer\AddComment.cshtml" />
+    <Content Include="Views\Developer\Index.cshtml" />
+    <Content Include="Views\Developer\UpdateDeveloperTask.cshtml" />
+    <Content Include="Views\DevTask\AddTask.cshtml" />
+    <Content Include="Views\DevTask\UpdateTask.cshtml" />
+    <Content Include="Views\ProjectManager\AddProject.cshtml" />
+    <Content Include="Views\ProjectManager\Index.cshtml" />
+    <Content Include="Views\ProjectManager\OrderByIncompleByDeadline.cshtml" />
+    <Content Include="Views\ProjectManager\OrderByPercent.cshtml" />
+    <Content Include="Views\ProjectManager\OrderByPercentExcludingComplete.cshtml" />
+    <Content Include="Views\ProjectManager\OrderByPriority.cshtml" />
+    <Content Include="Views\ProjectManager\UpdateProject.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -374,18 +393,18 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202005270608217_inital.resx">
-      <DependentUpon>202005270608217_inital.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202005282010334_addSalaryToUser.resx">
-      <DependentUpon>202005282010334_addSalaryToUser.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202006011826024_initial.resx">
+      <DependentUpon>202006011826024_initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006011913556_Notifications.resx">
+      <DependentUpon>202006011913556_Notifications.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

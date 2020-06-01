@@ -3,7 +3,7 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class inital : DbMigration
+    public partial class initial : DbMigration
     {
         public override void Up()
         {
@@ -12,21 +12,21 @@
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Title = c.String(),
-                        Description = c.String(),
+                        DateCompleted = c.DateTime(precision: 7, storeType: "datetime2"),
+                        DateCreated = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
+                        Deadline = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
                         Comment = c.String(),
+                        Description = c.String(),
+                        PercentCompleted = c.Int(),
                         Priority = c.Int(nullable: false),
                         Status = c.Int(nullable: false),
-                        Deadline = c.DateTime(nullable: false),
-                        DateCreated = c.DateTime(nullable: false),
-                        DateCompleted = c.DateTime(nullable: false),
-                        PercentCompleted = c.Int(nullable: false),
-                        DeveloperId = c.String(maxLength: 128),
+                        Title = c.String(),
+                        DeveloperId = c.String(nullable: false, maxLength: 128),
                         ProjectId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.AspNetUsers", t => t.DeveloperId)
                 .ForeignKey("dbo.Projects", t => t.ProjectId, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetUsers", t => t.DeveloperId, cascadeDelete: true)
                 .Index(t => t.DeveloperId)
                 .Index(t => t.ProjectId);
             
@@ -35,6 +35,8 @@
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128),
+                        Salary = c.Double(nullable: false),
+                        TeamName = c.String(),
                         Email = c.String(maxLength: 256),
                         EmailConfirmed = c.Boolean(nullable: false),
                         PasswordHash = c.String(),
@@ -76,6 +78,25 @@
                 .Index(t => t.UserId);
             
             CreateTable(
+                "dbo.Projects",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Budget = c.Single(nullable: false),
+                        DateCompleted = c.DateTime(precision: 7, storeType: "datetime2"),
+                        DateCreated = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
+                        Deadline = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
+                        Description = c.String(),
+                        Priority = c.Int(nullable: false),
+                        Status = c.Int(nullable: false),
+                        Title = c.String(),
+                        UserId = c.String(maxLength: 128),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId)
+                .Index(t => t.UserId);
+            
+            CreateTable(
                 "dbo.AspNetUserRoles",
                 c => new
                     {
@@ -87,22 +108,6 @@
                 .ForeignKey("dbo.AspNetRoles", t => t.RoleId, cascadeDelete: true)
                 .Index(t => t.UserId)
                 .Index(t => t.RoleId);
-            
-            CreateTable(
-                "dbo.Projects",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Title = c.String(nullable: false),
-                        Description = c.String(),
-                        Priority = c.Int(nullable: false),
-                        Status = c.Int(nullable: false),
-                        Deadline = c.DateTime(nullable: false),
-                        DateCreated = c.DateTime(nullable: false),
-                        DateCompleted = c.DateTime(nullable: false),
-                        Budget = c.Single(nullable: false),
-                    })
-                .PrimaryKey(t => t.Id);
             
             CreateTable(
                 "dbo.AspNetRoles",
@@ -119,22 +124,24 @@
         public override void Down()
         {
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
-            DropForeignKey("dbo.DevTasks", "ProjectId", "dbo.Projects");
             DropForeignKey("dbo.DevTasks", "DeveloperId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Projects", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.DevTasks", "ProjectId", "dbo.Projects");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
+            DropIndex("dbo.Projects", new[] { "UserId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
             DropIndex("dbo.DevTasks", new[] { "ProjectId" });
             DropIndex("dbo.DevTasks", new[] { "DeveloperId" });
             DropTable("dbo.AspNetRoles");
-            DropTable("dbo.Projects");
             DropTable("dbo.AspNetUserRoles");
+            DropTable("dbo.Projects");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
