@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using TaskManagementSystem.Models.ProjectClasses;
 
@@ -9,14 +8,17 @@ namespace TaskManagementSystem.Models
 {
     public class Project
     {
-        public Project() {
+        public Project()
+        {
 
         }
-        public Project(DateTime dateCreated, DateTime deadline, string description, Priority priority, Status status, string title, string userId) {
+        public Project(DateTime dateCreated, DateTime deadline, string description, float budget, Priority priority, Status status, string title, string userId)
+        {
             DateCompleted = null;
             DateCreated = dateCreated;
             Deadline = deadline;
             Description = description;
+            Budget = budget;
             Priority = priority;
             Status = status;
             Title = title;

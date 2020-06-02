@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
-namespace TaskManagementSystem.Models.ProjectClasses {
-    public class ProjectViewModel {
+namespace TaskManagementSystem.Models.ProjectClasses
+{
+    public class ProjectViewModel
+    {
         [Required]
         [DataType(DataType.Date)]
         [Display(Name = "Deadline")]
@@ -13,6 +12,9 @@ namespace TaskManagementSystem.Models.ProjectClasses {
         [Required]
         [Display(Name = "Description")]
         public string Description { get; set; }
+        [Required]
+        [Display(Name = "Budget")]
+        public float Budget { get; set; }
         [Required]
         [Display(Name = "Priority")]
         public Priority Priority { get; set; }
@@ -25,7 +27,8 @@ namespace TaskManagementSystem.Models.ProjectClasses {
 
     }
 
-    public class UpdateProjectViewModer {
+    public class UpdateProjectViewModer
+    {
         public int ProjectId { get; set; }
         [DataType(DataType.Date)]
         [Display(Name = "DateCompleted")]
@@ -35,6 +38,7 @@ namespace TaskManagementSystem.Models.ProjectClasses {
 
         public DateTime? Deadline { get; set; }
         public string Description { get; set; }
+        public float Budget { get; set; }
         public Priority Priority { get; set; }
         public Status Status { get; set; }
         public string Title { get; set; }
