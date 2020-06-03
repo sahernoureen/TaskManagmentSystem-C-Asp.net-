@@ -215,6 +215,14 @@
     <Compile Include="Migrations\202006031246213_BugReportPropertyAddedtoDevtask.designer.cs">
       <DependentUpon>202006031246213_BugReportPropertyAddedtoDevtask.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202006031724215_CommentEnumAdded.cs" />
+    <Compile Include="Migrations\202006031724215_CommentEnumAdded.designer.cs">
+      <DependentUpon>202006031724215_CommentEnumAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006031750074_CommentDeleted.cs" />
+    <Compile Include="Migrations\202006031750074_CommentDeleted.designer.cs">
+      <DependentUpon>202006031750074_CommentDeleted.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Helper\AdminHelper.cs" />
@@ -452,6 +460,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202006031246213_BugReportPropertyAddedtoDevtask.resx">
       <DependentUpon>202006031246213_BugReportPropertyAddedtoDevtask.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006031724215_CommentEnumAdded.resx">
+      <DependentUpon>202006031724215_CommentEnumAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006031750074_CommentDeleted.resx">
+      <DependentUpon>202006031750074_CommentDeleted.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

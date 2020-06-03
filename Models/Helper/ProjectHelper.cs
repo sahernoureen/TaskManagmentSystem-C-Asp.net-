@@ -114,7 +114,6 @@ namespace TaskManagementSystem.Models
             TimeSpan diff =  (proj.Deadline).Subtract(DateTime.Now);
             int daysleft = (int)diff.TotalDays;
             var anyRemainingTask = proj.DevTasks.Any(t => t.Status != Status.Completed);
-
             if (daysleft <=1 && anyRemainingTask == true)
             {
                 var CheckNotifi = proj.NotificationManagers.Any(n => n.Comment == "The Project exceeds Deadline without completetion");

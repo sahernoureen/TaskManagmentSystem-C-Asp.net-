@@ -46,18 +46,7 @@ namespace TaskManagementSystem.Models
             project1.DevTasks.Add(devTask);
             db.SaveChanges();
             TaskHelper.CreateDeveloperNotification(devTask);
-
-            var CheckNotifi = db.NotificationManagers.Where(x => x.TaskId == devTask.Id).Any(n => n.Comment == "The Project exceeds Deadline without completetion");
-            if (CheckNotifi == false && project1.DevTasks.Any(t => t.Status != Status.Completed))
-            {
-                NotificationManager NotifiMngr = new NotificationManager(project1.Id, DateTime.Now, project1.UserId, "The Project exceeds Deadline without completetion");
-                db.NotificationManagers.Add(NotifiMngr);
-                project1.NotificationManagers.Add(NotifiMngr);
-                project1.User.NotificationManager.Add(NotifiMngr);
-                db.SaveChanges();
-            }
-      
-        db.SaveChanges();
+            db.SaveChanges();
 
         }
 
