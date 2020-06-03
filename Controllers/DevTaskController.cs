@@ -23,6 +23,7 @@ namespace TaskManagementSystem.Controllers
         public ActionResult AddTask(TaskViewModel model) {
             if (ModelState.IsValid) {
                 TaskHelper.AddTask(model.ProjectId, model.Title, model.Description, model.Priority, model.Status, model.Deadline, model.DeveloperId);
+               
             }
             var userId = User.Identity.GetUserId();
             var users = TaskHelper.getAllDeveloperUserExceptProjectManagerId(userId);

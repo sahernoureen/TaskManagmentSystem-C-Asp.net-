@@ -24,6 +24,7 @@ namespace TaskManagementSystem.Models
             Title = title;
             UserId = userId;
             DevTasks = new HashSet<DevTask>();
+            NotificationManagers = new HashSet<NotificationManager>();
         }
 
         public int Id { get; set; }
@@ -42,5 +43,7 @@ namespace TaskManagementSystem.Models
         public string UserId { get; set; }
         public virtual ApplicationUser User { get; set; }
         public virtual ICollection<DevTask> DevTasks { get; set; }
+
+        public virtual ICollection<NotificationManager> NotificationManagers{get;set;}
     }
 }
