@@ -1,0 +1,14 @@
+﻿@model TaskManagementSystem.Models.ProjectClasses.NotificationManager
+
+<ul>
+    @if (Model != null)
+    {
+       
+        <li>Date Creates: &nbsp;@Model.DateCreated</li>
+        <li>Comment: &nbsp;@Model.Comment</li>
+        <li>Percent Completed: &nbsp;@Model.ProjectManager.UserName</li>
+ 
+    }
+</ul>
+
+<li> @Html.ActionLink("back To Notifications", "ManagerNotifications", "ProjectManager", new { UserId = Model.ProjectManagerId}, null)</li>

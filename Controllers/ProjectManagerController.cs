@@ -15,7 +15,37 @@ namespace TaskManagementSystem.Controllers {
 
         public ActionResult Index() {
             var projects = db.Projects.Include("User").Include("DevTasks").ToList();
+            ViewBag.UserId = User.Identity.GetUserId();
+            @ViewBag.NotificationCount = GetNotificationsCount(projects);
             return View(projects);
+        }
+
+        public int GetNotificationsCount(List<Project> projects)
+        {
+            var ManagerNotificationCount = 0;
+            foreach (var proj in projects)
+            {
+                ProjectHelper.CreateProjectManagerNotification(proj);
+                var checkedNotifcation = proj.NotificationManagers.Where(n => n.IsChecked == false).ToList();
+                ManagerNotificationCount += checkedNotifcation.Count();
+
+            }
+            return ManagerNotificationCount;
+        }
+
+        public ActionResult ManagerNotifications(string userId)
+        {
+            var Result = db.NotificationManagers.Where(m=>m.ProjectManagerId == userId).ToList();
+            return View(Result);
+        }
+
+        public ActionResult GetDetailOfANotifiction(int NotifiId )
+        {
+            var Result = db.NotificationManagers.FirstOrDefault(n => n.Id == NotifiId);
+            if(Result != null)
+            { Result.IsChecked = true; }           
+            db.SaveChanges();         
+            return View(Result);
         }
 
         [HttpGet]

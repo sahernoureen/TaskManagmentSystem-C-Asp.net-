@@ -191,6 +191,30 @@
     <Compile Include="Migrations\202006011913556_Notifications.designer.cs">
       <DependentUpon>202006011913556_Notifications.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202006012344444_AddAnnotationInNotificationDev.cs" />
+    <Compile Include="Migrations\202006012344444_AddAnnotationInNotificationDev.designer.cs">
+      <DependentUpon>202006012344444_AddAnnotationInNotificationDev.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006020007267_IsReadpropertyAddedToNotificationDevs.cs" />
+    <Compile Include="Migrations\202006020007267_IsReadpropertyAddedToNotificationDevs.designer.cs">
+      <DependentUpon>202006020007267_IsReadpropertyAddedToNotificationDevs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006020155594_NotificationMangaerClassUpdated.cs" />
+    <Compile Include="Migrations\202006020155594_NotificationMangaerClassUpdated.designer.cs">
+      <DependentUpon>202006020155594_NotificationMangaerClassUpdated.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006021601430_ColumnNameChangedInNotificationManager.cs" />
+    <Compile Include="Migrations\202006021601430_ColumnNameChangedInNotificationManager.designer.cs">
+      <DependentUpon>202006021601430_ColumnNameChangedInNotificationManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006031233084_backgroundcolorPropertydeletedfromManagerNoti.cs" />
+    <Compile Include="Migrations\202006031233084_backgroundcolorPropertydeletedfromManagerNoti.designer.cs">
+      <DependentUpon>202006031233084_backgroundcolorPropertydeletedfromManagerNoti.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006031246213_BugReportPropertyAddedtoDevtask.cs" />
+    <Compile Include="Migrations\202006031246213_BugReportPropertyAddedtoDevtask.designer.cs">
+      <DependentUpon>202006031246213_BugReportPropertyAddedtoDevtask.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Helper\AdminHelper.cs" />
@@ -385,6 +409,11 @@
     <Content Include="Views\ProjectManager\OrderByPercentExcludingComplete.cshtml" />
     <Content Include="Views\ProjectManager\OrderByPriority.cshtml" />
     <Content Include="Views\ProjectManager\UpdateProject.cshtml" />
+    <Content Include="Views\Developer\DeveloperNotifications.cshtml" />
+    <Content Include="Views\Developer\GetDetailOfANotification.cshtml" />
+    <Content Include="Views\ProjectManager\ManagerNotifications.cshtml" />
+    <Content Include="Views\ProjectManager\GetDetailOfANotifiction.cshtml" />
+    <Content Include="Views\Developer\ReportABug.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -404,6 +433,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202006011913556_Notifications.resx">
       <DependentUpon>202006011913556_Notifications.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006012344444_AddAnnotationInNotificationDev.resx">
+      <DependentUpon>202006012344444_AddAnnotationInNotificationDev.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006020007267_IsReadpropertyAddedToNotificationDevs.resx">
+      <DependentUpon>202006020007267_IsReadpropertyAddedToNotificationDevs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006020155594_NotificationMangaerClassUpdated.resx">
+      <DependentUpon>202006020155594_NotificationMangaerClassUpdated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006021601430_ColumnNameChangedInNotificationManager.resx">
+      <DependentUpon>202006021601430_ColumnNameChangedInNotificationManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006031233084_backgroundcolorPropertydeletedfromManagerNoti.resx">
+      <DependentUpon>202006031233084_backgroundcolorPropertydeletedfromManagerNoti.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006031246213_BugReportPropertyAddedtoDevtask.resx">
+      <DependentUpon>202006031246213_BugReportPropertyAddedtoDevtask.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

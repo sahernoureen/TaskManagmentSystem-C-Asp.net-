@@ -17,7 +17,27 @@ namespace TaskManagementSystem.Controllers
         public ActionResult Index() {
             var userId = User.Identity.GetUserId();
             var devTasks = db.DevTasks.Where(x => x.DeveloperId == userId).Include("Project").ToList();
+
+            ViewBag.UserId = userId;
+            ViewBag.NotificationCount = GetNotificationsCount(devTasks);
             return View(devTasks);
+        }
+
+        public int GetNotificationsCount(List<DevTask> UserTasks)
+        {  
+            var userNotificationCount = 0;
+            foreach (var newtask in UserTasks)
+            {
+                TaskHelper.CreateDeveloperNotification(newtask); 
+                if(newtask.NotificationDevs != null)
+                {
+                    if (newtask.NotificationDevs.IsRead == false)
+                    {
+                        userNotificationCount++;
+                    }
+                }
+            }
+            return userNotificationCount;
         }
 
         [HttpGet]
@@ -34,6 +54,14 @@ namespace TaskManagementSystem.Controllers
                     updateDevTask.DateCompleted = DateTime.Now;
                     updateDevTask.PercentCompleted = devTask.PercentCompleted;
                     updateDevTask.Status = Status.Completed;
+
+                    NotificationManager NotifiManager = new NotificationManager(updateDevTask.ProjectId, updateDevTask.Id, DateTime.Now, updateDevTask.Project.UserId,
+                                                        "The Task is Completed");
+                    db.NotificationManagers.Add(NotifiManager);
+                    updateDevTask.Project.NotificationManagers.Add(NotifiManager);
+                    updateDevTask.Project.User.NotificationManager.Add(NotifiManager);
+                    db.SaveChanges();
+
                 } else {
                     updateDevTask.Comment = null;
                     updateDevTask.DateCompleted = null;
@@ -60,6 +88,47 @@ namespace TaskManagementSystem.Controllers
                 db.SaveChanges();
             }
             return Redirect("Index");
+        }
+
+        [HttpGet]
+        public ActionResult ReportABug(int devTaskId)
+        {
+            var devtask = db.DevTasks.FirstOrDefault(x => x.Id == devTaskId);
+            return View(devtask);
+        }
+        [HttpPost]
+        public ActionResult ReportABug(DevTask devTask)
+        {
+            if (ModelState.IsValid)
+            {
+                var BugReportDevTask = db.DevTasks.FirstOrDefault(x => x.Id == devTask.Id);
+                BugReportDevTask.BugReport = devTask.BugReport;
+            //    var project = db.Projects.FirstOrDefault(p => p.);
+                TaskHelper.CreateBugNotification(BugReportDevTask, BugReportDevTask.Project);
+             
+            }
+            return Redirect("Index");
+        }
+
+
+
+
+        public ActionResult DeveloperNotifications(string userId)
+        {
+            var Result = db.NotificationDevs.Where(n => n.DeveloperId == userId).ToList();
+            return View(Result);
+        }
+
+        public ActionResult GetDetailOfANotification(int NotifiId)
+        {
+            var Result = db.NotificationDevs.FirstOrDefault(d => d.Id == NotifiId);
+            if(Result!= null)
+            {
+                Result.IsRead = true;
+            }
+          
+            db.SaveChanges();
+            return View(Result);
         }
     }
 }

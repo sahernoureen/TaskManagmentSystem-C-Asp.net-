@@ -26,6 +26,15 @@ namespace TaskManagementSystem.Models
             return db.DevTasks.FirstOrDefault(x => x.Id == id);
         }
 
+        public static NotificationDev GetNotificationForDeveloperoftask(int taskId)
+        {
+            return db.NotificationDevs.FirstOrDefault(n => n.DevTaskId == taskId);
+        }
+        public static List<NotificationManager> GetNotificationForManageroftask(int taskId)
+        {
+            return db.NotificationManagers.Where(n => n.TaskId == taskId).ToList();
+        }
+
         public static List<DevTask> getAllTasks(int id) {
             return db.DevTasks.Where(t => t.ProjectId == id).ToList();
         }
@@ -36,12 +45,40 @@ namespace TaskManagementSystem.Models
             DevTask devTask = new DevTask(Title, Desc, pr, Status, DateTime.Now, DeadLine, project1.Id, DevId);
             project1.DevTasks.Add(devTask);
             db.SaveChanges();
+            TaskHelper.CreateDeveloperNotification(devTask);
+
+            var CheckNotifi = db.NotificationManagers.Where(x => x.TaskId == devTask.Id).Any(n => n.Comment == "The Project exceeds Deadline without completetion");
+            if (CheckNotifi == false && project1.DevTasks.Any(t => t.Status != Status.Completed))
+            {
+                NotificationManager NotifiMngr = new NotificationManager(project1.Id, DateTime.Now, project1.UserId, "The Project exceeds Deadline without completetion");
+                db.NotificationManagers.Add(NotifiMngr);
+                project1.NotificationManagers.Add(NotifiMngr);
+                project1.User.NotificationManager.Add(NotifiMngr);
+                db.SaveChanges();
+            }
+      
+        db.SaveChanges();
+
         }
+
 
         //DELETE TASK
         public static void DeleteTask(int taskId) {
             var DevTask = GetTask(taskId);
-            db.DevTasks.Remove(DevTask);
+            var NotificationTask= GetNotificationForDeveloperoftask(taskId);
+            if(NotificationTask != null)
+            {
+                db.DevTasks.Remove(DevTask);
+                db.NotificationDevs.Remove(NotificationTask);
+            }
+       
+            var NotificationManger = GetNotificationForManageroftask(taskId);
+            foreach(var Notify in NotificationManger)
+            {
+                db.NotificationManagers.Remove(Notify);
+                db.SaveChanges();
+            }
+          
             db.SaveChanges();
         }
 
@@ -54,10 +91,6 @@ namespace TaskManagementSystem.Models
             DevTask.Priority = pr;
             DevTask.Status = Status;
             DevTask.Deadline = DeadLine ?? DevTask.Deadline;
-            //DevTask.DateCompleted = (DateTime)DateCompleted;
-            //DevTask.PercentCompleted = (int)percentcomplete;
-            //DevTask.Comment = comment;
-
             db.SaveChanges();
         }
 
@@ -78,9 +111,6 @@ namespace TaskManagementSystem.Models
             TaskView.Priority = task.Priority;
             TaskView.Status = task.Status;
             TaskView.Title = task.Title;
-            //TaskView.PercentCompleted = task.PercentCompleted;
-            //TaskView.Comment = task.Comment;
-            //TaskView.DateCompleted = task.DateCompleted;
             return TaskView;
         }
 
@@ -88,9 +118,28 @@ namespace TaskManagementSystem.Models
 
             var tasks = db.DevTasks.OrderByDescending(d => d.Priority == Priority.Urgent).ToList();
             return tasks;
+        }
 
+        public static void CreateDeveloperNotification(DevTask newtask)
+        {
+            TimeSpan diff = (newtask.Deadline).Subtract(DateTime.Now);
+            int daysleft = (int)diff.TotalDays;
+            if (daysleft <= 1 && newtask.NotificationDevs == null)
+            {
+                NotificationDev notify = new NotificationDev("One Day left for this task", DateTime.Now, newtask.Id, newtask.DeveloperId);
+                db.NotificationDevs.Add(notify);
+                newtask.NotificationDevs = notify;
+                newtask.Developer.NotificationDev.Add(notify);
+                db.SaveChanges();
+            }
+        }
 
-
+        public static void CreateBugNotification(DevTask task,Project project)
+        {
+            NotificationManager NotifiMngr = new NotificationManager(project.Id,task.Id, DateTime.Now, project.UserId, "Bug Found in task");
+            db.NotificationManagers.Add(NotifiMngr);
+            project.NotificationManagers.Add(NotifiMngr);
+            db.SaveChanges();
         }
     }
 

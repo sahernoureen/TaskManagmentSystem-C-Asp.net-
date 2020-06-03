@@ -35,6 +35,7 @@ namespace TaskManagementSystem.Models.ProjectClasses
         public Priority Priority { get; set; }
         public Status Status { get; set; }
         public string Title { get; set; }
+        public string BugReport { get; set; }
 
         public string DeveloperId { get; set; }
         public virtual ApplicationUser Developer { get; set; }
@@ -42,5 +43,8 @@ namespace TaskManagementSystem.Models.ProjectClasses
 
         public int ProjectId { get; set; }
         public virtual Project Project { get; set; }
+
+
+        public virtual NotificationDev NotificationDevs { get; set; }
     }
 }
