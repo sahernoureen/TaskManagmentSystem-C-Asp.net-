@@ -2,8 +2,11 @@
 @model TaskManagementSystem.Models.ProjectClasses.DevTask
 
 
-<h4>Report A Bug here</h4>
-<hr />
+<h2 class="centerText">Report A Bug here</h2>
+
+<br />
+<br />
+
 <li>Project Title: @Model.Title</li>
 <li>Description: @Model.Description</li>
 <li>Priority: @Model.Priority</li>
@@ -19,7 +22,7 @@
     @Html.HiddenFor(m => m.Id)
     @Html.ValidationSummary("", new { @class = "text-danger" })
     <div class="form-group">
-        @Html.LabelFor(m => m.BugReport, new { @class = "col-md-2 control-label" })
+        @Html.Label("Comment", new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
             @Html.TextBoxFor(m => m.BugReport, new { @class = "form-control" })
         </div>

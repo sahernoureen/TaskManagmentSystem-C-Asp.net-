@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using TaskManagementSystem.Models.ProjectClasses;
 
 namespace TaskManagementSystem.Models
@@ -11,10 +10,13 @@ namespace TaskManagementSystem.Models
         public static ApplicationDbContext db = new ApplicationDbContext();
 
         //USER 
-        public static List<ApplicationUser> getAllDeveloperUserExceptProjectManagerId(string userId) {
+        public static List<ApplicationUser> getAllDeveloperUserExceptProjectManagerId(string userId)
+        {
             List<ApplicationUser> listDevelopers = new List<ApplicationUser>();
-            foreach (var user in db.Users) {
-                if (AdminHelper.checkIfUserIsRole(user.Id, "Developer") && user.Id != userId) {
+            foreach (var user in db.Users)
+            {
+                if (AdminHelper.checkIfUserIsRole(user.Id, "Developer") && user.Id != userId)
+                {
                     listDevelopers.Add(user);
                 }
             }
@@ -22,7 +24,8 @@ namespace TaskManagementSystem.Models
         }
 
         //GET TASK
-        public static DevTask GetTask(int id) {
+        public static DevTask GetTask(int id)
+        {
             return db.DevTasks.FirstOrDefault(x => x.Id == id);
         }
 
@@ -35,12 +38,14 @@ namespace TaskManagementSystem.Models
             return db.NotificationManagers.Where(n => n.TaskId == taskId).ToList();
         }
 
-        public static List<DevTask> getAllTasks(int id) {
+        public static List<DevTask> getAllTasks(int id)
+        {
             return db.DevTasks.Where(t => t.ProjectId == id).ToList();
         }
 
         //ADD TASK
-        public static void AddTask(int ProjectId, string Title, string Desc, Priority pr, Status Status, DateTime DeadLine, string DevId) {
+        public static void AddTask(int ProjectId, string Title, string Desc, Priority pr, Status Status, DateTime DeadLine, string DevId)
+        {
             Project project1 = db.Projects.FirstOrDefault(p => p.Id == ProjectId);
             DevTask devTask = new DevTask(Title, Desc, pr, Status, DateTime.Now, DeadLine, project1.Id, DevId);
             project1.DevTasks.Add(devTask);
@@ -52,27 +57,29 @@ namespace TaskManagementSystem.Models
 
 
         //DELETE TASK
-        public static void DeleteTask(int taskId) {
+        public static void DeleteTask(int taskId)
+        {
             var DevTask = GetTask(taskId);
-            var NotificationTask= GetNotificationForDeveloperoftask(taskId);
-            if(NotificationTask != null)
+            var NotificationTask = GetNotificationForDeveloperoftask(taskId);
+            if (NotificationTask != null)
             {
                 db.DevTasks.Remove(DevTask);
                 db.NotificationDevs.Remove(NotificationTask);
             }
-       
+
             var NotificationManger = GetNotificationForManageroftask(taskId);
-            foreach(var Notify in NotificationManger)
+            foreach (var Notify in NotificationManger)
             {
                 db.NotificationManagers.Remove(Notify);
                 db.SaveChanges();
             }
-          
+
             db.SaveChanges();
         }
 
         //UPDATE TASK
-        public static void UpdateTask(int TaskId, int ProjectId, string Title, string Desc, Priority pr, Status Status, DateTime? DeadLine) {
+        public static void UpdateTask(int TaskId, int ProjectId, string Title, string Desc, Priority pr, Status Status, DateTime? DeadLine)
+        {
             var DevTask = GetTask(TaskId);
             DevTask.Title = Title;
             DevTask.ProjectId = ProjectId;
@@ -83,13 +90,15 @@ namespace TaskManagementSystem.Models
             db.SaveChanges();
         }
 
-        public static void AssignTask(int id, string developerId) {
+        public static void AssignTask(int id, string developerId)
+        {
             DevTask devTask = GetTask(id);
             devTask.DeveloperId = developerId;
             db.SaveChanges();
         }
 
-        public static UpdateTaskViewModelForPM createTaskViewModel(int TaskId) {
+        public static UpdateTaskViewModelForPM createTaskViewModel(int TaskId)
+        {
             var task = GetTask(TaskId);
             UpdateTaskViewModelForPM TaskView = new UpdateTaskViewModelForPM();
             TaskView.TaskId = TaskId;
@@ -103,7 +112,8 @@ namespace TaskManagementSystem.Models
             return TaskView;
         }
 
-        public static List<DevTask> OrderbyPriority(int projectId) {
+        public static List<DevTask> OrderbyPriority(int projectId)
+        {
 
             var tasks = db.DevTasks.OrderByDescending(d => d.Priority == Priority.Urgent).ToList();
             return tasks;
@@ -123,9 +133,9 @@ namespace TaskManagementSystem.Models
             }
         }
 
-        public static void CreateBugNotification(DevTask task,Project project)
+        public static void CreateBugNotification(DevTask task, Project project)
         {
-            NotificationManager NotifiMngr = new NotificationManager(project.Id,task.Id, DateTime.Now, project.UserId, "Bug Found in task");
+            NotificationManager NotifiMngr = new NotificationManager(project.Id, task.Id, DateTime.Now, project.UserId, "Bug Found in task");
             db.NotificationManagers.Add(NotifiMngr);
             project.NotificationManagers.Add(NotifiMngr);
             db.SaveChanges();

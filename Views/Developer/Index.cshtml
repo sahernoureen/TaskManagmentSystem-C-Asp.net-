@@ -1,25 +1,31 @@
 ﻿@model List<TaskManagementSystem.Models.ProjectClasses.DevTask>
 
-<p>DEVELOPER DASHBOARD</p>
-@ViewBag.NotificationCount
-@Html.ActionLink("NewNotifications", "DeveloperNotifications", "Developer", new { UserId = ViewBag.UserId }, null)
+<h2 class="centerText">DEVELOPER DASHBOARD</h2>
+
+<button class="btn btn-warning btn-default col-md-offset-10">
+    @ViewBag.NotificationCount
+    @Html.ActionLink("New Notifications", "DeveloperNotifications", "Developer", new { UserId = ViewBag.UserId }, null)
+</button>
+
+<br />
 
 @if (Model.Count > 0)
 {
-    <p>List Of Tasks</p>
+    <h4 style="text-align: center">List Of Tasks</h4>
 
     foreach (var devTask in Model)
     {
         <ol>
-            <li>
+            <li class="bg-warning">
                 Project Title: @devTask.Project.Title
-                <span> &nbsp; &nbsp; &nbsp; &nbsp;</span>
+                <span class="col-md-offset-8"></span>
                 @Html.ActionLink("Update", "UpdateDeveloperTask", new { devTaskId = devTask.Id }, null) &nbsp; &nbsp;
                 @Html.ActionLink("Report Bug", "ReportABug", new { devTaskId = devTask.Id }, null)
 
             </li>
+            <br />
             <ul>
-                <li>Task Title: @devTask.Title</li>
+                <li>Task Title: <span style="color: crimson">@devTask.Title</span></li>
                 <li>Description: @devTask.Description</li>
                 <li>Priority: @devTask.Priority</li>
                 <li>Status: @devTask.Status</li>
