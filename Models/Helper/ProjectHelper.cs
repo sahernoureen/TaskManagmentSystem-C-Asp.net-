@@ -56,6 +56,7 @@ namespace TaskManagementSystem.Models
         {
             var project = getProjectById(projectId);
             UpdateProjectViewModer projectView = new UpdateProjectViewModer();
+            projectView.Budget = project.Budget;
             projectView.ProjectId = projectId;
             projectView.DateCompleted = project.DateCompleted;
             projectView.Deadline = project.Deadline;
@@ -77,9 +78,13 @@ namespace TaskManagementSystem.Models
         public static float projectCostManager(int projectId)
         {
             var project = getProjectById(projectId);
-
+            var user = getUserById(project.UserId);
             var daysPassedProject = (DateTime.Now - project.DateCreated.Date).Days;
-            var managerAmount = project.User.Salary * daysPassedProject;
+           
+         
+              var managerAmount = user.Salary * daysPassedProject;
+            
+         
 
             return (float)managerAmount;
         }

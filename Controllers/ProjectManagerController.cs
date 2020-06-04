@@ -16,8 +16,9 @@ namespace TaskManagementSystem.Controllers
 
         public ActionResult Index()
         {
-            var projects = db.Projects.Include("User").Include("DevTasks").ToList();
-            ViewBag.UserId = User.Identity.GetUserId();
+            var userId = User.Identity.GetUserId();
+            var projects = db.Projects.Include("User").Include("DevTasks").Where(x => x.UserId == userId).ToList();
+            ViewBag.UserId = userId;
             @ViewBag.NotificationCount = GetNotificationsCount(projects);
             return View(projects);
         }

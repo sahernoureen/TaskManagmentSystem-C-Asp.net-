@@ -16,14 +16,13 @@
 </ul>
 
 
-@if (Model.Count > 0)
-{
+@if (Model.Count > 0) {
     <h4>List Of Projects</h4>
     @ViewBag.NotificationCount
+    <span> &nbsp; &nbsp;</span>
     @Html.ActionLink("NewNotifications", "ManagerNotifications", "ProjectManager", new { UserId = ViewBag.UserId }, null)
     <ol>
-        @foreach (var project in Model)
-        {
+        @foreach (var project in Model) {
             <li>
                 @project.Title
                 <span> &nbsp;</span>
@@ -36,41 +35,30 @@
                 <li>Description: @project.Description</li>
                 <li>
                     Budget: $@project.Budget - Remainder:
-                    @if (@ProjectHelper.updateCost(project.Id) > 0)
-                    {
+                    @if (@ProjectHelper.updateCost(project.Id) > 0) {
                         <span class="btn btn-success btn-xs">$@ProjectHelper.updateCost(project.Id)</span>
-                    }
-                    else
-                    {
+                    } else {
                         <span class="btn btn-danger btn-xs">$@ProjectHelper.updateCost(project.Id)</span>
                     }
                 </li>
                 <li>Priority: @project.Priority</li>
-                @if (project.Status == Status.Completed)
-                {
+                @if (project.Status == Status.Completed) {
                     <li>Status: @project.Status with total cost of $@(ProjectHelper.projectCostManager(project.Id) + ProjectHelper.projectCostDevelopers(project.Id))</li>
-                }
-                else
-                {
+                } else {
                     <li>Status: @project.Status</li>
                 }
                 <li>DateCreated: @project.DateCreated</li>
                 <li>Deadline: @project.Deadline</li>
-                @if (project.DateCompleted == null)
-                {
+                @if (project.DateCompleted == null) {
                     <li>Date Completed: Not Yet Completed</li>
-                }
-                else
-                {
+                } else {
                     <li>Date Completed: @project.DateCompleted</li>
                 }
                 <li>Created By: @project.User.UserName (Project Manager)</li>
-                @if (project.DevTasks.Count > 0)
-                {
+                @if (project.DevTasks.Count > 0) {
                     <li>List Of Task</li>
                     <ol>
-                        @foreach (var devTask in project.DevTasks)
-                        {
+                        @foreach (var devTask in project.DevTasks) {
                             <li>
                                 <span>
                                     Task Name: @devTask.Title

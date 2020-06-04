@@ -55,8 +55,13 @@ namespace TaskManagementSystem.Controllers
                     updateDevTask.PercentCompleted = devTask.PercentCompleted;
                     updateDevTask.Status = Status.Completed;
 
-         NotificationManager NotifiManager = new NotificationManager(updateDevTask.ProjectId, updateDevTask.Id, DateTime.Now, updateDevTask.Project.UserId,
-                                                        "The Task is Completed");
+                    NotificationManager NotifiManager = new NotificationManager(
+                        updateDevTask.ProjectId, 
+                        updateDevTask.Id, 
+                        DateTime.Now, 
+                        updateDevTask.Project.UserId,
+                        "The Task is Completed");
+
                     db.NotificationManagers.Add(NotifiManager);
                     updateDevTask.Project.NotificationManagers.Add(NotifiManager);
                     updateDevTask.Project.User.NotificationManager.Add(NotifiManager);

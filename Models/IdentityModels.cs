@@ -56,7 +56,7 @@ namespace TaskManagementSystem.Models
 
         }
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("TaskManagementSystemConnectionString", throwIfV1Schema: false)
         {
         }
 
