@@ -7,7 +7,7 @@
 
 <br />
 <br />
-<div>
+@*<div>
     <div>
         @foreach (var user in Model)
         {
@@ -32,14 +32,56 @@
 
                 }
             </ul>
-       
+
         }
     </div>
-</div>
+</div>*@
 
-<table class="table table-hover">
-    ...
+
+<table class="table table-bordered">
+    <tr>
+        <th>
+            @Html.DisplayName("Name")
+        </th>
+        <th>
+            @Html.DisplayName("Salary for 1 day")
+        </th>
+        <th>
+            @Html.DisplayName("Role")
+        </th>
+        <th></th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Salary)
+            </td>
+            @foreach (var role in item.RolesInfo)
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => role.Name)
+                </td>
+                <td>
+                    @Html.ActionLink("Remove Role", "RemoveUserFromRole", "Admin", new { userId = item.Id, role = role.Name }, null)
+                </td>
+            }
+            
+            <td>
+                @Html.ActionLink("Delete User", "DeleteUser", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
 </table>
+
+<br />
+<br />
 
 <div>
     <span class="btn btn-info btn-xs">@Html.ActionLink("Add new User", "AddUser", "Admin")</span>
@@ -48,31 +90,3 @@
     <span class="btn btn-info btn-xs">@Html.ActionLink("Get all Roles", "GetAllRoles", "Admin")</span>
     <span class="btn btn-info btn-xs">@Html.ActionLink("Add User to Role", "AddUserToRole", "Admin")</span>
 </div>
-
-<table class="table">
-    <tr>
-        <th>
-            @Html.Display("Name")
-        </th>
-        <th>
-            @Html.Display("Salary")
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Salary)
-            </td>
-            <td>
-                @Html.ActionLink("Details", "GetAllUsersInfo", new { id=item.Id }) |
-                @Html.ActionLink("Delete", "DeleteUser", new { id=item.Id })
-            </td>
-        </tr>
-    }
-
-</table>
