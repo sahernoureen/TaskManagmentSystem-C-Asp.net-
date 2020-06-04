@@ -2,14 +2,16 @@
 @{
     ViewBag.Title = "AdminHomePage";
 }
-<h2>AdminHomePage</h2>
-<ul>
+<h2 class="centerText">Admin Home Page</h2>
 
-    <span class="btn btn-info btn-xs">@Html.ActionLink("Add new User", "AddUser", "Admin")</span>
-    <span class="btn btn-info btn-xs">@Html.ActionLink("Add new Role", "AddRole", "Admin")</span>
-    <span class="btn btn-info btn-xs">@Html.ActionLink("Get all Users Info", "GetAllUsersInfo", "Admin")</span>
-    <span class="btn btn-info btn-xs">@Html.ActionLink("Get all Roles", "GetAllRoles", "Admin")</span>
-    <span class="btn btn-info btn-xs">@Html.ActionLink("Add User to Role", "AddUserToRole", "Admin")</span>
+<br />
+<br />
 
-    
-</ul>
+
+<div class="customFlex">
+    <div class="btn btn-info btn-xs">@Html.ActionLink("Add new User", "AddUser", "Admin")</div>
+    <div class="btn btn-info btn-xs">@Html.ActionLink("Add new Role", "AddRole", "Admin")</div>
+    <div class="btn btn-info btn-xs">@Html.ActionLink("Get all Users Info", "GetAllUsersInfo", "Admin")</div>
+    <div class="btn btn-info btn-xs">@Html.ActionLink("Get all Roles", "GetAllRoles", "Admin")</div>
+    <div class="btn btn-info btn-xs">@Html.ActionLink("Add User to Role", "AddUserToRole", "Admin")</div>
+</div>

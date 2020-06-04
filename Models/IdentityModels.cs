@@ -64,5 +64,7 @@ namespace TaskManagementSystem.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<TaskManagementSystem.Models.Helper.UserInfoHolder> UserInfoHolders { get; set; }
     }
 }

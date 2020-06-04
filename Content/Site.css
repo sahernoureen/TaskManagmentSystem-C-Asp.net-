@@ -22,3 +22,21 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.centerText {
+    color: white;
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.customFlex {
+    max-width: 150px;
+    display: flex;
+    flex-direction: column;
+    height: 150px;
+    justify-content: space-between;
+}
+

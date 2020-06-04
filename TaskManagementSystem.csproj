@@ -223,6 +223,10 @@
     <Compile Include="Migrations\202006031750074_CommentDeleted.designer.cs">
       <DependentUpon>202006031750074_CommentDeleted.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202006041923250_AddedTable.cs" />
+    <Compile Include="Migrations\202006041923250_AddedTable.designer.cs">
+      <DependentUpon>202006041923250_AddedTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Helper\AdminHelper.cs" />
@@ -247,6 +251,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\ProjectCSS.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -466,6 +471,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202006031750074_CommentDeleted.resx">
       <DependentUpon>202006031750074_CommentDeleted.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006041923250_AddedTable.resx">
+      <DependentUpon>202006041923250_AddedTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
