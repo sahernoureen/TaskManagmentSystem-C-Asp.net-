@@ -3,9 +3,12 @@
     ViewBag.Title = "AddRole";
 }
 
-<h2>AddRole</h2>
+<h2 class="centerText">Add a Role</h2>
 
-@if (Model== true)
+<br />
+<br />
+
+@if (Model == true)
 {
     <h2>Add sucessfull</h2>
 
@@ -20,17 +23,13 @@ else
 
         @using (Html.BeginForm("AddRole", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
         {
-           
-            <h4>Create a new account.</h4>
-            <hr />
-            
             <div class="form-group">
                 @Html.Label("RoleName", new { @class = "col-md-2 control-label" })
                 <div class="col-md-10">
-                    @Html.TextBox("roleName",null, new { @class = "form-control" })
+                    @Html.TextBox("roleName", null, new { @class = "form-control" })
                 </div>
             </div>
-  
+
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
                     <input type="submit" class="btn btn-default" value="Add Role" />
@@ -40,6 +39,9 @@ else
     </div>
 
 }
+
+<br />
+<br />
 
 <div>
     <span class="btn btn-info btn-xs">@Html.ActionLink("Add new User", "AddUser", "Admin")</span>

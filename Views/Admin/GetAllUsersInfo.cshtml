@@ -7,35 +7,6 @@
 
 <br />
 <br />
-@*<div>
-    <div>
-        @foreach (var user in Model)
-        {
-
-            <ul>
-
-                <li>
-                    Name: @user.Name  Daily Salary:$ @user.Salary
-                    <span class="btn btn-danger btn-xs">@Html.ActionLink("Delete", "DeleteUser", "Admin", new { userId = user.Id }, null)</span>
-                </li>
-
-                @foreach (var role in user.RolesInfo)
-                {
-                    <ul>
-
-
-                        <li>
-                            @role.Name
-                            @Html.ActionLink("Remove Role", "RemoveUserFromRole", "Admin", new { userId = user.Id, role = role.Name }, null)
-                        </li>
-                    </ul>
-
-                }
-            </ul>
-
-        }
-    </div>
-</div>*@
 
 
 <table class="table table-bordered">

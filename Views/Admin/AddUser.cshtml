@@ -2,7 +2,9 @@
 @{
     ViewBag.Title = "AddUser";
 }
-<h2>Add new User</h2>
+<h2 class="centerText">Add new User</h2>
+
+<br />
 
 @if (ViewBag.AddStatus == true)
 {
@@ -14,53 +16,54 @@ else if (ViewBag.AddStatus == false)
 }
 else
 {
-<div>
+    <div>
 
-    @using (Html.BeginForm("AddUser", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-    {
-        @Html.AntiForgeryToken()
-        <h4>Create a new account.</h4>
-        <hr />
-        @Html.ValidationSummary("", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+        @using (Html.BeginForm("AddUser", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary("", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                </div>
+
             </div>
 
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(m => m.Salary, new { @class = "col-md-2 control-label" })
-            @Html.Label("(For 1 Day)")
-            <div class="col-md-10">
-                @Html.TextBoxFor(m => m.Salary, new { @class = "form-control" })
+            <div class="form-group">
+                @Html.LabelFor(m => m.Salary, new { @class = "col-md-2 control-label" })
+                @Html.Label("(For 1 Day)")
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.Salary, new { @class = "form-control" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(m => m.Password, new { Value = "123456", @class = "form-control" })
+            <div class="form-group">
+                @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.Password, new { Value = "123456", @class = "form-control" })
+                </div>
             </div>
-        </div>
 
 
-        <div class="form-group">
-            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(m => m.ConfirmPassword, new { Value = "123456", @class = "form-control" })
+            <div class="form-group">
+                @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.ConfirmPassword, new { Value = "123456", @class = "form-control" })
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" class="btn btn-default" value="Add User" />
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" class="btn btn-default" value="Add User" />
+                </div>
             </div>
-        </div>
-    }
-</div>
+        }
+    </div>
 
 }
+
+<br />
+<br />
 
 <div>
     <span class="btn btn-info btn-xs">@Html.ActionLink("Add new User", "AddUser", "Admin")</span>
