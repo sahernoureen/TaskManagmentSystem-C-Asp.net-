@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Globalization;
 using System.Linq;
 using TaskManagementSystem.Models.Helper;
 
@@ -17,7 +19,7 @@ namespace TaskManagementSystem.Models
 
             if (userManager.FindByEmail(user.Email) == null)
             {
-                ApplicationUser appUser = new ApplicationUser() { Email = user.Email, UserName = user.Email, Salary = user.Salary };
+                ApplicationUser appUser = new ApplicationUser() { Email = user.Email, UserName = user.Email, Salary = user.Salary};
                 userManager.Create(appUser, user.Password);
                 return true;
             }
@@ -30,7 +32,7 @@ namespace TaskManagementSystem.Models
             if (userManager.FindById(userId) != null)
             {
                 var user = db.Users.Find(userId);
-                foreach (var n in user.NotificationDev)
+                foreach (var n in user.NotificationDev) 
                 {
                     user.NotificationDev.Remove(n);
                     db.SaveChanges();
@@ -50,39 +52,38 @@ namespace TaskManagementSystem.Models
                     user.Projects.Remove(p);
                     db.SaveChanges();
                 }
+               
                 userManager.Delete(user);
                 return true;
             }
             return false;
         }
-
-
         public static List<UserInfoHolder> getAllUsersInfo()
         {
             var users = db.Users.ToList();
 
             var userInfo = new List<UserInfoHolder>();
 
-            foreach (var u in users)
+            foreach (var u in users) 
             {
                 var ui = new UserInfoHolder();
                 ui.Id = u.Id;
                 ui.Name = u.UserName;
                 ui.Salary = u.Salary;
 
-                foreach (var r in u.Roles)
+                foreach(var r in u.Roles) 
                 {
                     var role = db.Roles.Find(r.RoleId);
                     ui.RolesInfo.Add(role);
                 }
                 userInfo.Add(ui);
             }
-            return userInfo.Where(u => u.RolesInfo.All(r => r.Name != "Admin")).ToList();
+            return userInfo.Where(u=>u.RolesInfo.All(r=>r.Name!="Admin")).ToList();
         }
 
         public static List<IdentityRole> getAllRoles()
         {
-            return db.Roles.Where(r => r.Name != "Admin").ToList();
+            return db.Roles.Where(r=>r.Name!="Admin").ToList();
         }
         public static ApplicationUser getUserById(string userId)
         {
@@ -142,6 +143,6 @@ namespace TaskManagementSystem.Models
             var result = userManager.IsInRole(userId, role);
             return result;
         }
-
+        
     }
 }

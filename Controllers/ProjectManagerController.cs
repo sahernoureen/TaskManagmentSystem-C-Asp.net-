@@ -156,6 +156,12 @@ namespace TaskManagementSystem.Controllers
             }
             return View(projects);
         }
+
+        public ActionResult GetTasks(int projectId)
+        {
+            var tasks = db.Projects.Find(projectId).DevTasks.ToList();
+            return View(tasks);
+        }
     }
 
 }

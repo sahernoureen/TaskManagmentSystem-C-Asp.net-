@@ -1,32 +1,104 @@
-﻿@model List<TaskManagementSystem.Models.ProjectClasses.DevTask>
+﻿@model IEnumerable<TaskManagementSystem.Models.ProjectClasses.DevTask>
 
-<h2>Order By Incomple By Deadline</h2>
+<h2 class="centerText">Order By Incomple By Deadline</h2>
 
-@if (Model.Count > 0) {
-    <h2>List Of Task</h2>
-    <ol>
-        @foreach (var devTask in Model) {
-            <li>
-                @devTask.Title
-                <span> &nbsp;</span>
-                @Html.ActionLink("Update", "UpdateTask", "DevTask", new { devTaskId = @devTask.Id }, null)
-                <span> &nbsp;</span>
-                @Html.ActionLink("Delete", "DeleteTask", "DevTask", new { devTaskId = @devTask.Id }, null)
-            </li>
-            <ul>
-                <li>Description: @devTask.Description</li>
-                <li>Priority: @devTask.Priority</li>
-                <li>Status: @devTask.Status</li>
-                <li>DateCreated: @devTask.DateCreated</li>
-                <li>Deadline: @devTask.Deadline</li>
-                <li>Developer: @devTask.Developer.UserName</li>
-                <li>Percent Completed: @devTask.PercentCompleted</li>
-                <li>Project Title: @devTask.Project.Title</li>
-            </ul>
-            <br />
-            <br />
+@if (Model.Count() > 0)
+{
+
+    <table class="table table-bordered">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Project.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateCompleted)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateCreated)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Deadline)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Comment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PercentCompleted)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Priority)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Developer.UserName)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.BugReport)
+            </th>
+            <th></th>
+            <th></th>
+
+        </tr>
+
+        @foreach (var item in Model)
+        {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Project.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateCompleted)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateCreated)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Deadline)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Comment)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PercentCompleted)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Priority)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Developer.UserName)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.BugReport)
+        </td>
+        <td>
+            @Html.ActionLink("Update", "UpdateTask", "DevTask", new { devTaskId = item.Id, projectId = item.ProjectId }, null)
+
+        </td>
+        <td>
+
+            @Html.ActionLink("Delete", "DeleteTask", "DevTask", new { devTaskId = item.Id }, null)
+
+        </td>
+
+    </tr>
         }
-    </ol>
+
+    </table>
+
 }
 @Html.ActionLink("Back to Dashboard", "Index")
 

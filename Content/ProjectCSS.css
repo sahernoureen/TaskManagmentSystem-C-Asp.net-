@@ -1,1 +1,16 @@
-﻿
+﻿.ProjectContainer {
+    display: flex;
+    width: 100%;
+    justify-content:space-between;  
+    box-sizing:border-box;
+    flex-flow: wrap;
+}
+
+.ProjectInfo {
+    background-color: lightgoldenrodyellow;
+    padding: 20px;
+    border-radius: 20px;
+    width: 30%;
+    box-sizing: border-box;
+    margin:10px;
+}

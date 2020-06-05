@@ -1,0 +1,100 @@
+﻿@model IEnumerable<TaskManagementSystem.Models.ProjectClasses.DevTask>
+
+@{
+    ViewBag.Title = "GetTasks";
+}
+
+
+<h2 class="centerText">Tasks</h2>
+
+<table class="table table-bordered">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Project.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateCompleted)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateCreated)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Deadline)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Comment)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PercentCompleted)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Priority)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Developer.UserName)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.BugReport)
+        </th>
+        <th></th>
+        <th></th>
+
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Title)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Project.Description)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.DateCompleted)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.DateCreated)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Deadline)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Comment)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Description)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.PercentCompleted)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Priority)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Developer.UserName)
+    </td>
+
+    <td>
+        @Html.DisplayFor(modelItem => item.BugReport)
+    </td>
+    <td>
+        @Html.ActionLink("Update", "UpdateTask", "DevTask", new { devTaskId = item.Id, projectId = item.ProjectId }, null)
+
+    </td>
+    <td>
+
+        @Html.ActionLink("Delete", "DeleteTask", "DevTask", new { devTaskId = item.Id }, null)
+
+    </td>
+
+</tr>
+}
+
+</table>

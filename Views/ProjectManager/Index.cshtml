@@ -1,91 +1,121 @@
 ﻿@using TaskManagementSystem.Models
 @model List<TaskManagementSystem.Models.Project>
 
-<h2>PROJECT MANAGER DASHBOARD</h2>
-<h4>Projects</h4>
-<ul>
-    <li>@Html.ActionLink("Add Project", "AddProject")</li>
-    <li>@Html.ActionLink("Order By Percent", "OrderByPercent")</li>
-    <li>@Html.ActionLink("Order By Percent Excluding Complete", "OrderByPercentExcludingComplete")</li>
-    <li>@Html.ActionLink("Order By Priority", "OrderByPriority")</li>
-    <li>@Html.ActionLink("Projects over Budget", "OverBudget")</li>
-</ul>
+<h2 class="centerText">PROJECT MANAGER DASHBOARD</h2>
+
+
+
+@if (Model.Count > 0)
+{
+
+    <button class="btn btn-warning btn-default col-md-offset-10">
+        @ViewBag.NotificationCount
+        @Html.ActionLink("New Notifications", "ManagerNotifications", "ProjectManager", new { UserId = ViewBag.UserId }, null)
+    </button>
+
+    <div class="ProjectContainer">
+        @foreach (var project in Model)
+        {
+
+
+            <div class="ProjectInfo">
+
+                <div>
+                    @project.Title
+                    <span> &nbsp;</span>
+                    <span class="btn btn-info btn-xs">@Html.ActionLink("Update", "UpdateProject", new { projectId = project.Id }, null)</span>
+                    <span> &nbsp;</span>
+                    <span class="btn btn-warning btn-xs">@Html.ActionLink("Delete", "DeleteProject", new { projectId = project.Id }, null)</span>
+
+                </div>
+
+                <ul>
+                    <li>Description: @project.Description</li>
+                    <li>
+                        Budget: $@project.Budget - Remainder:
+                        @if (@ProjectHelper.updateCost(project.Id) > 0)
+                        {
+                            <span class="btn btn-success btn-xs">$@ProjectHelper.updateCost(project.Id)</span>
+                        }
+                        else
+                        {
+                            <span class="btn btn-danger btn-xs">$@ProjectHelper.updateCost(project.Id)</span>
+                        }
+                    </li>
+                    <li>Priority: @project.Priority</li>
+                    @if (project.Status == Status.Completed)
+                    {
+                        <li>Status: @project.Status with total cost of $@(ProjectHelper.projectCostManager(project.Id) + ProjectHelper.projectCostDevelopers(project.Id))</li>
+                    }
+                    else
+                    {
+                        <li>Status: @project.Status</li>
+                    }
+                    <li>DateCreated: @project.DateCreated</li>
+                    <li>Deadline: @project.Deadline</li>
+                    @if (project.DateCompleted == null)
+                    {
+                        <li>Date Completed: Not Yet Completed</li>
+                    }
+                    else
+                    {
+                        <li>Date Completed: @project.DateCompleted</li>
+                    }
+                    <li>Created By: @project.User.UserName (Project Manager)</li>
+
+
+
+
+
+
+                    @if (project.DevTasks.Count > 0)
+                        {
+                            <li>List Of Task</li>
+                            <ol>
+                                @foreach (var devTask in project.DevTasks)
+                                {
+                                    <li>
+                                        <span>
+                                            Task Name: @devTask.Title
+                                            <span> &nbsp;</span>
+                                            @Html.ActionLink("Update", "UpdateTask", "DevTask", new { devTaskId = devTask.Id, projectId = project.Id }, null)
+                                            <span> &nbsp;</span>
+                                            @Html.ActionLink("Delete", "DeleteTask", "DevTask", new { devTaskId = devTask.Id }, null)
+                                        </span>
+                                        <br />
+                                        <span>Developer: @devTask.Developer.UserName</span>
+                                        <br />
+                                        <span>Deadline: @devTask.Deadline</span>
+                                        <br />
+                                        <span>Status: @devTask.Status</span>
+                                        <br />
+                                        <span>Percent Completed: @devTask.PercentCompleted%</span>
+                                    </li>
+                                }
+
+                            </ol>
+
+                        }
+                </ul>
+
+                <div>
+                    <span  class="btn btn-info btn-xs">@Html.ActionLink("Add Task", "AddTask", "DevTask", new { projectId = project.Id }, null)</span>
+                    <span  class="btn btn-info btn-xs">@Html.ActionLink("Details", "GetTasks", "ProjectManager", new { projectId = project.Id }, null)</span>
+                </div>
+            </div>
+        }
+    </div>
+}
+
 <h4>Task</h4>
 <ul>
     <li>@Html.ActionLink("Overdue Deadline That are Incomplete", "OrderByIncompleByDeadline")</li>
 </ul>
 
-
-@if (Model.Count > 0) {
-    <h4>List Of Projects</h4>
-    @ViewBag.NotificationCount
-    <span> &nbsp; &nbsp;</span>
-    @Html.ActionLink("NewNotifications", "ManagerNotifications", "ProjectManager", new { UserId = ViewBag.UserId }, null)
-    <ol>
-        @foreach (var project in Model) {
-            <li>
-                @project.Title
-                <span> &nbsp;</span>
-                <span class="btn btn-info btn-xs">@Html.ActionLink("Update", "UpdateProject", new { projectId = project.Id }, null)</span>
-                <span> &nbsp;</span>
-                <span class="btn btn-warning btn-xs">@Html.ActionLink("Delete", "DeleteProject", new { projectId = project.Id }, null)</span>
-
-            </li>
-            <ul>
-                <li>Description: @project.Description</li>
-                <li>
-                    Budget: $@project.Budget - Remainder:
-                    @if (@ProjectHelper.updateCost(project.Id) > 0) {
-                        <span class="btn btn-success btn-xs">$@ProjectHelper.updateCost(project.Id)</span>
-                    } else {
-                        <span class="btn btn-danger btn-xs">$@ProjectHelper.updateCost(project.Id)</span>
-                    }
-                </li>
-                <li>Priority: @project.Priority</li>
-                @if (project.Status == Status.Completed) {
-                    <li>Status: @project.Status with total cost of $@(ProjectHelper.projectCostManager(project.Id) + ProjectHelper.projectCostDevelopers(project.Id))</li>
-                } else {
-                    <li>Status: @project.Status</li>
-                }
-                <li>DateCreated: @project.DateCreated</li>
-                <li>Deadline: @project.Deadline</li>
-                @if (project.DateCompleted == null) {
-                    <li>Date Completed: Not Yet Completed</li>
-                } else {
-                    <li>Date Completed: @project.DateCompleted</li>
-                }
-                <li>Created By: @project.User.UserName (Project Manager)</li>
-                @if (project.DevTasks.Count > 0) {
-                    <li>List Of Task</li>
-                    <ol>
-                        @foreach (var devTask in project.DevTasks) {
-                            <li>
-                                <span>
-                                    Task Name: @devTask.Title
-                                    <span> &nbsp;</span>
-                                    @Html.ActionLink("Update", "UpdateTask", "DevTask", new { devTaskId = devTask.Id, projectId = project.Id }, null)
-                                    <span> &nbsp;</span>
-                                    @Html.ActionLink("Delete", "DeleteTask", "DevTask", new { devTaskId = devTask.Id }, null)
-                                </span>
-                                <br />
-                                <span>Developer: @devTask.Developer.UserName</span>
-                                <br />
-                                <span>Deadline: @devTask.Deadline</span>
-                                <br />
-                                <span>Status: @devTask.Status</span>
-                                <br />
-                                <span>Percent Completed: @devTask.PercentCompleted%</span>
-                            </li>
-                        }
-
-                    </ol>
-                }
-            </ul>
-
-            <p class="btn btn-info btn-xs">@Html.ActionLink("Add Task", "AddTask", "DevTask", new { projectId = project.Id }, null)</p>
-            <br />
-            <br />
-            <br />
-        }
-    </ol>
-}
+<div>
+    <span class="btn btn-info btn-xs">@Html.ActionLink("Add Project", "AddProject")</span>
+    <span class="btn btn-info btn-xs">@Html.ActionLink("Order By Percent", "OrderByPercent")</span>
+    <span class="btn btn-info btn-xs">@Html.ActionLink("Order By Percent Excluding Complete", "OrderByPercentExcludingComplete")</span>
+    <span class="btn btn-info btn-xs">@Html.ActionLink("Order By Priority", "OrderByPriority")</span>
+    <span class="btn btn-info btn-xs">@Html.ActionLink("Projects over Budget", "OverBudget")</span>
+</div>
