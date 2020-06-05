@@ -1,16 +1,21 @@
 ﻿@model TaskManagementSystem.Models.ProjectClasses.NotificationDev
 
+<h2 class="centerText">Notification Detail</h2>
 
-<ul>
-    @if (Model != null)
-    {
+<br /><br/>
+      <div class="Detail">
+          <div>
+              @if (Model != null)
+              {
+                  <br />
+                  <div>Date Created: &nbsp;@Model.DateCreated</div>
+                  <div>Comment: &nbsp;@Model.Comment</div>
+                  <div>Developer Name: &nbsp;@Model.Developer.UserName</div>
+                  <div>Notification For Task :@Model.DevTaskId</div>
 
-        <li>Date Creates: &nbsp;@Model.DateCreated</li>
-        <li>Comment: &nbsp;@Model.Comment</li>
-        <li>Percent Completed: &nbsp;@Model.Developer.UserName</li>
+              }
+          </div>
+          <br />   <br />
 
-    }
-</ul>
-
-
- @Html.ActionLink("back To Notifications", "DeveloperNotifications", "Developer", new { UserId = Model.DeveloperId}, null)
+          @Html.ActionLink("back To Notifications", "DeveloperNotifications", "Developer", new { UserId = Model.DeveloperId }, null)
+      </div>
