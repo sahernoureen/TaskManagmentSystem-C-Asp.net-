@@ -1,30 +1,61 @@
 ﻿
 @model List<TaskManagementSystem.Models.ProjectClasses.NotificationDev>
+    <h2 class="centerText">All Notifications</h2>
 
-@if (Model.Count > 0)
-{
-
-    <p> View All Notifications</p>
-    <ul>
-        @foreach (var Notifi in Model)
+    <div class="Notifi">
+        @if (Model.Count > 0)
         {
-            if (Notifi.IsRead==false)
-            {
-                <li><span style="background-color:lightgray"> @Notifi.Comment &nbsp;&nbsp; @Notifi.DateCreated.ToLongDateString() </span></li>
-                @Html.ActionLink("More Details of The task for this Notification", "GetDetailOfANotification", "Developer", new { NotifiId = Notifi.Id}, null)
-            }
-            else
-            {
-                <li>@Notifi.Comment &nbsp;&nbsp; @Notifi.DateCreated.ToLongDateString() </li>
-                @Html.ActionLink("More Details of The task for this Notification", "GetDetailOfANotification", "Developer", new { NotifiId = Notifi.Id }, null)
-            }
+            <br/><br />
+            <table class="table table-hover">
+                <tr>
+                    <th>
+                        Date
+                    </th>
+                    <th>
+                        Message
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var Notifi in Model)
+                {
+                    if (Notifi.IsRead == false)
+                    {
+                        <tr style="background-color:lightgray">
+                            <td>
+                                @Html.DisplayFor(modelItem => Notifi.DateCreated)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => Notifi.Comment)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Details", "GetDetailOfANotification", "Developer", new { NotifiId = Notifi.Id }, null)
+                            </td>
+                        </tr>
+                    }
+                    else
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => Notifi.DateCreated)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => Notifi.Comment)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Details", "GetDetailOfANotification", "Developer", new { NotifiId = Notifi.Id }, null)
+                            </td>
+                        </tr>
+                    }
+
+
+                }
+
+            </table>
+
 
         }
-
-    </ul>
-
-    @Html.ActionLink("back To Developer Main page", "Index", "Developer");
-
-}
-
-
+        @Html.ActionLink("Back To Developer DashBoard", "Index", "Developer")
+    </div>
+     
+       
