@@ -2,8 +2,15 @@
     ViewBag.Title = "Home Page";
 }
 <br />
+
+<h4 class="centerText">@ViewBag.greet</h4>
+
 <br />
 <br />
-<p>@Html.ActionLink("Administration", "AdminHomePage", "Admin")</p>
-<p>@Html.ActionLink("Project Manager", "Index", "ProjectManager")</p>
-<p>@Html.ActionLink("Developer", "Index", "Developer")</p>
+
+<button class="btn btn-lg col-md-offset-3" style="margin-right: 20px; border-color: darkblue">@Html.ActionLink("Administration", "AdminHomePage", "Admin")</button>
+<button class="btn btn-lg" style="margin-right: 20px; border-color: darkblue">@Html.ActionLink("Project Manager", "Index", "ProjectManager")</button>
+<button class="btn btn-lg" style="margin-right: 20px; border-color: darkblue">@Html.ActionLink("Developer", "Index", "Developer")</button>
+
+<br />
+<br />

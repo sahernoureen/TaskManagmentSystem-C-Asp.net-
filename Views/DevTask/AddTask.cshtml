@@ -3,10 +3,13 @@
 
 
 
-@using (Html.BeginForm("AddTask", "DevTask", FormMethod.Post, new { @class = "form-horizontal", role = "form" })) {
+@using (Html.BeginForm("AddTask", "DevTask", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
     @Html.AntiForgeryToken()
-    <h4>Create a new Task.</h4>
-    <hr />
+    <h2 class="centerText">Create a new Task</h2>
+
+    <br />
+    <br />
 
     @Html.ValidationSummary("", new { @class = "text-danger" })
     <div class="form-group">
@@ -55,7 +58,7 @@
         </div>
     </div>
 }
-@Html.ActionLink("Back to Dashboard", "Index","ProjectManager")
+@Html.ActionLink("Back to Dashboard", "Index", "ProjectManager")
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

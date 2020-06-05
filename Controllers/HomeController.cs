@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace TaskManagementSystem.Controllers
@@ -10,6 +7,14 @@ namespace TaskManagementSystem.Controllers
     {
         public ActionResult Index()
         {
+            if (DateTime.Now.Hour < 12)
+            {
+                ViewBag.greet = $"Good morning {User.Identity.Name}, please choose from the following options:";
+            }
+            else
+            {
+                ViewBag.greet = $"Good afternoon {User.Identity.Name}, please choose from the following options:";
+            }
             return View();
         }
 
