@@ -13,13 +13,10 @@
         @Html.ActionLink("New Notifications", "ManagerNotifications", "ProjectManager", new { UserId = ViewBag.UserId }, null)
     </button>
 
-    <div class="ProjectContainer">
+    <div class="ProjectContainer ProjContainer">
         @foreach (var project in Model)
         {
-
-
-            <div class="ProjectInfo">
-
+            <div class="ProjectInfo projInfo">
                 <div>
                     @project.Title
                     <span> &nbsp;</span>
@@ -63,39 +60,6 @@
                     }
                     <li>Created By: @project.User.UserName (Project Manager)</li>
 
-
-
-
-
-
-                    @if (project.DevTasks.Count > 0)
-                        {
-                            <li>List Of Task</li>
-                            <ol>
-                                @foreach (var devTask in project.DevTasks)
-                                {
-                                    <li>
-                                        <span>
-                                            Task Name: @devTask.Title
-                                            <span> &nbsp;</span>
-                                            @Html.ActionLink("Update", "UpdateTask", "DevTask", new { devTaskId = devTask.Id, projectId = project.Id }, null)
-                                            <span> &nbsp;</span>
-                                            @Html.ActionLink("Delete", "DeleteTask", "DevTask", new { devTaskId = devTask.Id }, null)
-                                        </span>
-                                        <br />
-                                        <span>Developer: @devTask.Developer.UserName</span>
-                                        <br />
-                                        <span>Deadline: @devTask.Deadline</span>
-                                        <br />
-                                        <span>Status: @devTask.Status</span>
-                                        <br />
-                                        <span>Percent Completed: @devTask.PercentCompleted%</span>
-                                    </li>
-                                }
-
-                            </ol>
-
-                        }
                 </ul>
 
                 <div>
