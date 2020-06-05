@@ -32,6 +32,27 @@ namespace TaskManagementSystem.Models
             if (userManager.FindById(userId) != null)
             {
                 var user = db.Users.Find(userId);
+                foreach (var n in user.NotificationDev) 
+                {
+                    user.NotificationDev.Remove(n);
+                    db.SaveChanges();
+                }
+                foreach (var n in user.NotificationManager)
+                {
+                    user.NotificationManager.Remove(n);
+                    db.SaveChanges();
+                }
+                foreach (var t in user.Tasks)
+                {
+                    user.Tasks.Remove(t);
+                    db.SaveChanges();
+                }
+                foreach (var p in user.Projects)
+                {
+                    user.Projects.Remove(p);
+                    db.SaveChanges();
+                }
+               
                 userManager.Delete(user);
                 return true;
             }

@@ -44,7 +44,7 @@
             }
             
             <td>
-                @Html.ActionLink("Delete User", "DeleteUser", new { id = item.Id })
+                @Html.ActionLink("Delete User", "DeleteUser", "Admin", new { userId = item.Id },null)
             </td>
         </tr>
     }
